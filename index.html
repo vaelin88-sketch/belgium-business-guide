@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belgium Business Startup Guide</title>
+    <style>
+        :root {
+            --primary: #f0f4f8;
+            --secondary: #ffffff;
+            --accent: #e94560;
+            --accent2: #3b82f6;
+            --gold: #d97706;
+            --green: #16a34a;
+            --bg: #f5f7fa;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --hover-bg: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+            position: relative;
+            color: #fff;
+        }
+
+        .header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .header .flag { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { color: #cbd5e1; font-size: 1.1rem; }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.25rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.35rem 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover { color: #fff; background: rgba(255,255,255,0.15); }
+        .lang-btn.active { background: #fff; color: #1e40af; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+        /* Progress */
+        .progress-container {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .progress-steps { display: flex; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+
+        .progress-step {
+            display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem;
+            color: var(--muted); cursor: pointer; padding: 0.3rem 0.6rem;
+            border-radius: 6px; transition: all 0.3s;
+        }
+
+        .progress-step:hover { background: var(--hover-bg); }
+        .progress-step.active { color: var(--accent); font-weight: 600; }
+        .progress-step.completed { color: var(--green); }
+
+        .progress-step .step-num {
+            width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 700;
+            background: var(--border); color: var(--muted); flex-shrink: 0;
+        }
+
+        .progress-step.active .step-num { background: var(--accent); color: #fff; }
+        .progress-step.completed .step-num { background: var(--green); color: #fff; }
+
+        .progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--gold)); border-radius: 2px; transition: width 0.5s ease; }
+
+        /* Sections */
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card); border-radius: 12px; padding: 2rem;
+            margin-bottom: 1.5rem; border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color 0.3s;
+        }
+
+        .card:hover { border-color: #cbd5e1; }
+        .card h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent2); }
+        .card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; color: var(--text); }
+
+        /* Idea cards */
+        .idea-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem; }
+
+        .idea-card {
+            background: var(--hover-bg); border: 2px solid var(--border); border-radius: 10px;
+            padding: 1.5rem; cursor: pointer; transition: all 0.3s; position: relative;
+        }
+
+        .idea-card:hover { border-color: var(--accent2); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .idea-card.selected { border-color: var(--green); background: rgba(22,163,74,0.05); }
+        .idea-card .idea-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .idea-card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .idea-card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
+
+        .idea-meta { display: flex; gap: 0.75rem; font-size: 0.8rem; flex-wrap: wrap; }
+        .idea-meta span { background: #eef2ff; padding: 0.2rem 0.6rem; border-radius: 4px; color: #4338ca; }
+        .profit-indicator { color: var(--green) !important; font-weight: 600; background: #f0fdf4 !important; }
+
+        /* Table */
+        .structure-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        .structure-table th, .structure-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        .structure-table th { background: #f1f5f9; color: var(--accent2); font-weight: 600; }
+        .structure-table tr:hover { background: var(--hover-bg); }
+
+        .recommend-badge { background: var(--green); color: #fff; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
+
+        /* Checklist */
+        .checklist { list-style: none; }
+        .checklist li {
+            padding: 0.75rem 1rem; border-left: 3px solid var(--border);
+            margin-bottom: 0.5rem; background: var(--hover-bg);
+            border-radius: 0 8px 8px 0; display: flex; align-items: flex-start;
+            gap: 0.75rem; cursor: pointer; transition: all 0.3s;
+        }
+        .checklist li:hover { border-left-color: var(--accent2); }
+        .checklist li.checked { border-left-color: var(--green); opacity: 0.7; }
+        .checklist li.checked .check-text { text-decoration: line-through; }
+
+        .check-box {
+            width: 22px; height: 22px; border: 2px solid #94a3b8; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 2px; transition: all 0.3s; color: #fff; font-size: 0.8rem;
+        }
+        .checklist li.checked .check-box { background: var(--green); border-color: var(--green); }
+        .check-details { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+        /* Calculator */
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        @media (max-width: 600px) { .calc-grid { grid-template-columns: 1fr; } }
+
+        .calc-input { display: flex; flex-direction: column; gap: 0.3rem; }
+        .calc-input label { font-size: 0.85rem; color: var(--muted); }
+        .calc-input input, .calc-input select {
+            background: #f8fafc; border: 1px solid var(--border); color: var(--text);
+            padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 1rem;
+        }
+        .calc-input input:focus, .calc-input select:focus { outline: none; border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+
+        .calc-result {
+            background: linear-gradient(135deg, #f0f9ff, #eff6ff);
+            border: 1px solid #bfdbfe; border-radius: 10px;
+            padding: 1.5rem; margin-top: 1.5rem;
+        }
+        .calc-result h3 { color: var(--accent2); margin-bottom: 1rem; text-align: center; }
+
+        .result-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0; }
+        .result-row:last-child { border-bottom: none; }
+        .result-row .label { color: var(--muted); }
+        .result-row .value { font-weight: 600; }
+        .result-row .value.positive { color: var(--green); }
+        .result-row .value.negative { color: var(--accent); }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.5rem; border: none; border-radius: 8px;
+            font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { background: #d63851; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(233,69,96,0.3); }
+        .btn-secondary { background: #e2e8f0; color: var(--text); }
+        .btn-secondary:hover { background: #cbd5e1; }
+        .btn-group { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+        /* Info boxes */
+        .info-box {
+            background: #eff6ff; border-left: 3px solid var(--accent2);
+            padding: 1rem 1.25rem; border-radius: 0 8px 8px 0;
+            margin: 1rem 0; font-size: 0.9rem;
+        }
+        .info-box.warning { background: #fef2f2; border-left-color: var(--accent); }
+        .info-box.tip { background: #f0fdf4; border-left-color: var(--green); }
+        .info-box strong { display: block; margin-bottom: 0.3rem; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+
+        .timeline-item {
+            position: relative; margin-bottom: 1.5rem;
+            padding: 1rem 1.25rem; background: var(--hover-bg);
+            border-radius: 8px; border: 1px solid var(--border);
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -1.65rem; top: 1.25rem;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent2); border: 2px solid var(--bg);
+        }
+        .timeline-item .week { font-size: 0.8rem; color: var(--accent2); font-weight: 600; margin-bottom: 0.3rem; }
+        .timeline-item h4 { margin-bottom: 0.5rem; }
+        .timeline-item p { font-size: 0.9rem; color: var(--muted); }
+
+        .tl-tasks { list-style: none; margin-top: 0.5rem; }
+        .tl-tasks li {
+            display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.35rem 0;
+            font-size: 0.88rem; cursor: pointer; transition: opacity 0.3s;
+        }
+        .tl-tasks li.done { opacity: 0.5; text-decoration: line-through; color: var(--muted); }
+        .tl-check {
+            width: 18px; height: 18px; border: 2px solid #94a3b8; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            margin-top: 2px; font-size: 0.7rem; color: #fff; transition: all 0.2s;
+        }
+        .tl-tasks li.done .tl-check { background: var(--green); border-color: var(--green); }
+        .tl-progress { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+        .tl-progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 0.25rem; overflow: hidden; }
+        .tl-progress-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.3s; }
+
+        /* Cost bars */
+        .cost-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .cost-bar .cost-label { width: 180px; flex-shrink: 0; font-size: 0.9rem; }
+        .cost-bar .bar-track { flex: 1; height: 26px; background: #f1f5f9; border-radius: 6px; overflow: hidden; }
+        .cost-bar .bar-fill {
+            height: 100%; border-radius: 6px; display: flex; align-items: center;
+            padding-left: 8px; font-size: 0.75rem; font-weight: 600; color: #fff; transition: width 0.5s ease;
+        }
+
+        /* Custom idea */
+        .custom-idea-form { background: var(--hover-bg); border: 2px dashed var(--border); border-radius: 10px; padding: 1.5rem; margin-top: 1rem; }
+        .custom-idea-form input, .custom-idea-form textarea {
+            width: 100%; background: #fff; border: 1px solid var(--border); color: var(--text);
+            padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 1rem; margin-bottom: 0.75rem; font-family: inherit;
+        }
+        .custom-idea-form textarea { min-height: 80px; resize: vertical; }
+
+        @media print { .btn, .lang-switcher { display: none; } }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('nl')">NL</button>
+        <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    </div>
+    <div class="flag">&#127463;&#127466;</div>
+    <h1 id="headerTitle">Belgium Business Startup Guide</h1>
+    <p id="headerSub">Your complete step-by-step path from idea to launch</p>
+</div>
+
+<div class="container">
+    <div class="progress-container">
+        <div class="progress-steps" id="progressSteps"></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section active" id="step-1">
+        <div class="card">
+            <h2 id="s1Title">Step 1: Choose Your Business Idea</h2>
+            <p id="s1Desc">Select a proven business model or enter your own. Each option shows estimated startup costs, monthly profit potential, and difficulty for Belgium.</p>
+            <div class="idea-grid" id="ideaGrid"></div>
+            <div class="custom-idea-form">
+                <h3 id="customTitle">Or enter your own idea</h3>
+                <input type="text" id="customIdeaName" placeholder="">
+                <textarea id="customIdeaDesc" placeholder=""></textarea>
+                <button class="btn btn-secondary" onclick="selectCustomIdea()" id="customBtn">Use My Own Idea</button>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="nextStep()" id="s1Next">Next: Legal Structure &rarr;</button>
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section" id="step-2">
+        <div class="card">
+            <h2 id="s2Title">Step 2: Choose Your Legal Structure</h2>
+            <p id="s2Desc">Belgium reformed its company law in 2019 (WVV). Here are the main options:</p>
+            <div style="overflow-x:auto;"><table class="structure-table" id="structureTable"></table></div>
+            <div class="info-box tip" id="s2Tip1"></div>
+            <div class="info-box" id="s2Tip2"></div>
+            <h3 id="s2Choose" style="margin-top:1.5rem;">Your choice:</h3>
+            <div class="idea-grid" id="structGrid"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevStep()" id="s2Back">&larr; Back</button>
+            <button class="btn btn-primary" onclick="nextStep()" id="s2Next">Next: Registration &rarr;</button>
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="section" id="step-3">
+        <div class="card">
+            <h2 id="s3Title">Step 3: Register Your Business</h2>
+            <p id="s3Desc">Here's every registration step in order. Check them off as you complete them.</p>
+            <ul class="checklist" id="registrationChecklist"></ul>
+            <div class="info-box warning" id="s3Warning"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevStep()" id="s3Back">&larr; Back</button>
+            <button class="btn btn-primary" onclick="nextStep()" id="s3Next">Next: Costs &amp; Tax &rarr;</button>
+        </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="section" id="step-4">
+        <div class="card">
+            <h2 id="s4Title">Step 4: Startup Costs &amp; Tax Optimization</h2>
+            <p id="s4Desc">Calculate your real costs and see how much you'll keep after Belgian taxes.</p>
+            <h3 id="s4CostTitle">Startup Cost Estimator</h3>
+            <div id="costBreakdown"></div>
+            <h3 id="s4TaxTitle" style="margin-top:2rem;">Income &amp; Tax Calculator</h3>
+            <div class="calc-grid">
+                <div class="calc-input"><label id="lblRevenue">Expected Monthly Revenue (&euro;)</label><input type="number" id="monthlyRevenue" value="5000" oninput="calculateTax()"></div>
+                <div class="calc-input"><label id="lblExpenses">Monthly Business Expenses (&euro;)</label><input type="number" id="monthlyExpenses" value="1500" oninput="calculateTax()"></div>
+                <div class="calc-input"><label id="lblStructure">Legal Structure</label><select id="taxStructure" onchange="calculateTax()"><option value="bv">BV</option><option value="eenmanszaak">Eenmanszaak</option></select></div>
+                <div class="calc-input"><label id="lblSalary">Monthly Salary from BV (&euro;)</label><input type="number" id="bvSalary" value="2500" oninput="calculateTax()"></div>
+            </div>
+            <div class="calc-result" id="taxResult"></div>
+            <h3 id="s4TipsTitle" style="margin-top:2rem;">Belgium Tax Optimization Tips</h3>
+            <div id="taxTips"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevStep()" id="s4Back">&larr; Back</button>
+            <button class="btn btn-primary" onclick="nextStep()" id="s4Next">Next: Launch Timeline &rarr;</button>
+        </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="section" id="step-5">
+        <div class="card">
+            <h2 id="s5Title">Step 5: Your Launch Timeline</h2>
+            <p id="s5Desc">A realistic week-by-week plan to go from zero to operational.</p>
+            <div class="timeline" id="timeline"></div>
+        </div>
+        <div class="card">
+            <h2 id="s5ResTitle">Essential Resources</h2>
+            <div id="resourcesContent"></div>
+        </div>
+        <div class="card">
+            <h2 id="s5SumTitle">Your Business Summary</h2>
+            <div id="summary"></div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="exportPlan()" id="exportBtn">Export Full Plan as Text</button>
+                <button class="btn btn-secondary" onclick="window.print()" id="printBtn">Print This Page</button>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevStep()" id="s5Back">&larr; Back</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===== TRANSLATIONS =====
+const T = {
+en: {
+    headerTitle: 'Belgium Business Startup Guide',
+    headerSub: 'Your complete step-by-step path from idea to launch',
+    steps: ['Business Idea', 'Legal Structure', 'Registration', 'Costs & Tax', 'Launch Timeline'],
+    s1Title: 'Step 1: Choose Your Business Idea',
+    s1Desc: 'Select a proven business model or enter your own. Each option shows estimated startup costs, monthly profit potential, and difficulty for Belgium.',
+    customTitle: 'Or enter your own idea',
+    customPlaceholder: 'Business name / idea',
+    customDescPlaceholder: 'Describe your business idea...',
+    customBtn: 'Use My Own Idea',
+    s1Next: 'Next: Legal Structure \u2192',
+    s2Title: 'Step 2: Choose Your Legal Structure',
+    s2Desc: 'Belgium reformed its company law in 2019 (WVV). Here are the main options:',
+    s2Choose: 'Your choice:',
+    s2Back: '\u2190 Back', s2Next: 'Next: Registration \u2192',
+    s3Title: 'Step 3: Register Your Business',
+    s3Desc: "Here's every registration step in order. Check them off as you complete them.",
+    s3Back: '\u2190 Back', s3Next: 'Next: Costs & Tax \u2192',
+    s4Title: 'Step 4: Startup Costs & Tax Optimization',
+    s4Desc: "Calculate your real costs and see how much you'll keep after Belgian taxes.",
+    s4CostTitle: 'Startup Cost Estimator',
+    s4TaxTitle: 'Income & Tax Calculator',
+    s4TipsTitle: 'Belgium Tax Optimization Tips',
+    s4Back: '\u2190 Back', s4Next: 'Next: Launch Timeline \u2192',
+    s5Title: 'Step 5: Your Launch Timeline',
+    s5Desc: 'A realistic week-by-week plan to go from zero to operational.',
+    s5ResTitle: 'Essential Resources',
+    s5SumTitle: 'Your Business Summary',
+    s5Back: '\u2190 Back',
+    exportBtn: 'Export Full Plan as Text',
+    printBtn: 'Print This Page',
+    lblRevenue: 'Expected Monthly Revenue (\u20ac)',
+    lblExpenses: 'Monthly Business Expenses (\u20ac)',
+    lblStructure: 'Legal Structure',
+    lblSalary: 'Monthly Salary from BV (\u20ac)',
+    costIntro: 'Estimated one-time startup costs based on your selections:',
+    totalCost: 'Total estimated startup cost:',
+    recommended: 'RECOMMENDED',
+    s2Tip1: '<strong>Pro tip for most starters:</strong> The BV (formerly BVBA) is the go-to choice. Since 2019, there\'s no minimum capital requirement \u2014 you just need a solid financial plan showing enough to operate for 2 years. The 20% reduced corporate tax rate on the first \u20ac100,000 profit is a huge advantage over being taxed personally.',
+    s2Tip2: '<strong>When to stay Eenmanszaak:</strong> If your net profit stays below ~\u20ac25,000/year, a sole proprietorship can be simpler and cheaper. Once you cross that threshold, a BV usually saves you money on taxes.',
+    s3Warning: '<strong>Important deadlines:</strong> You MUST register with a social insurance fund within 90 days of starting. BTW registration should be done before your first invoice. Late registration = fines.',
+    structHeaders: ['Structure', 'Min. Capital', 'Liability', 'Tax Rate', 'Best For'],
+    structures: [
+        ['Eenmanszaak (Sole Proprietor)', 'None', 'Unlimited personal', '25\u201350% (progressive personal income tax)', 'Freelancers, low-risk services'],
+        ['BV (Besloten Vennootschap)', 'No minimum (needs financial plan)', 'Limited to contribution', '20% (reduced up to \u20ac100k) / 25%', 'Most businesses, scalable'],
+        ['VOF (Vennootschap Onder Firma)', 'None', 'Unlimited & joint', 'Personal income tax per partner', 'Partnerships with high trust'],
+        ['CommV (Commanditaire Vennootschap)', 'None', 'Mixed', 'Personal income tax', 'Investor + operator combos'],
+        ['NV (Naamloze Vennootschap)', '\u20ac61,500', 'Limited', '20% / 25%', 'Large companies, stock exchange'],
+    ],
+    structCards: [
+        { id: 'eenmanszaak', icon: '\u{1F464}', name: 'Eenmanszaak', desc: 'Simplest to start, cheapest setup, but personal liability' },
+        { id: 'bv', icon: '\u{1F3E2}', name: 'BV', desc: 'Best tax rate, limited liability, professional image' },
+        { id: 'vof', icon: '\u{1F91D}', name: 'VOF', desc: 'Simple partnership, shared responsibility' },
+        { id: 'nv', icon: '\u{1F3E3}', name: 'NV', desc: 'For large operations needing significant capital' },
+    ],
+    ideas: [
+        { id:'ecommerce', icon:'\u{1F6D2}', name:'E-commerce / Dropshipping', desc:'Sell products online via your own webshop or platforms like Bol.com, Amazon.nl. Low inventory risk with dropshipping.', startup:'500 - 3,000', profit:'1,000 - 10,000+', difficulty:'Medium', margin:'15-40%', time:'2-4 months' },
+        { id:'freelance-dev', icon:'\u{1F4BB}', name:'Freelance IT / Software Dev', desc:'Belgium has massive demand for IT freelancers. Day rates of \u20ac400-800 are common.', startup:'200 - 1,000', profit:'4,000 - 12,000+', difficulty:'Medium-High', margin:'60-80%', time:'1-2 months' },
+        { id:'cleaning', icon:'\u{1F9F9}', name:'Cleaning Company', desc:'Dienstencheques (service vouchers) system guarantees payment. Government subsidized. Very stable demand.', startup:'2,000 - 8,000', profit:'2,000 - 8,000', difficulty:'Low-Medium', margin:'20-35%', time:'1-3 months' },
+        { id:'food-truck', icon:'\u{1F354}', name:'Food Truck / Dark Kitchen', desc:'Belgians love street food. Operate at markets, events, or via delivery apps. Low fixed costs vs restaurant.', startup:'10,000 - 40,000', profit:'2,000 - 7,000', difficulty:'Medium-High', margin:'25-45%', time:'3-6 months' },
+        { id:'consulting', icon:'\u{1F4BC}', name:'Consulting / Coaching', desc:'Leverage expertise in management, HR, marketing, finance, or sustainability. Very high margins.', startup:'500 - 2,000', profit:'3,000 - 15,000+', difficulty:'Medium', margin:'70-90%', time:'2-4 months' },
+        { id:'renovation', icon:'\u{1F528}', name:'Home Renovation / Handyman', desc:'Huge demand in Belgium. Energy renovation subsidies drive business. Skilled trades are scarce.', startup:'5,000 - 20,000', profit:'3,000 - 10,000', difficulty:'Medium', margin:'30-50%', time:'1-3 months' },
+        { id:'digital-agency', icon:'\u{1F3A8}', name:'Digital Marketing Agency', desc:'Help Belgian SMEs with SEO, social media, Google Ads, web design. Recurring revenue via retainers.', startup:'500 - 3,000', profit:'2,000 - 15,000+', difficulty:'Medium', margin:'50-80%', time:'2-4 months' },
+        { id:'import-export', icon:'\u{1F6A2}', name:'Import / Export Trading', desc:'Belgium\u2019s central EU location + Port of Antwerp = trade hub. Import niche products, sell within EU.', startup:'5,000 - 30,000', profit:'2,000 - 20,000+', difficulty:'High', margin:'20-50%', time:'3-6 months' },
+    ],
+    regSteps: [
+        { t:'Write your financial plan (BV only)', d:'Required by law for BV. Must show sufficient starting capital for at least 2 years. Get an accountant to help.' },
+        { t:'Open a business bank account', d:'Required for BV. Recommended for all. Banks: KBC, BNP Paribas Fortis, ING, Belfius. Online: Qonto, Finom.' },
+        { t:'Notarial deed (BV/NV only)', d:'For a BV, you need a notary for the incorporation deed (oprichtingsakte). Cost: \u20ac1,000-2,000. Not needed for eenmanszaak/VOF.' },
+        { t:'Register at an enterprise counter (ondernemingsloket)', d:'Required for ALL business forms. Go to Xerius, Acerta, Liantis, UCM etc. They register you in the KBO. Cost: ~\u20ac90-100.' },
+        { t:'Activate your BTW/VAT number', d:'Done at the same enterprise counter. Your enterprise number becomes your BTW number. Must be active before first invoice.' },
+        { t:'Join a social insurance fund', d:'Mandatory within 90 days. Quarterly contributions ~20.5% of net income. Starters pay reduced rates (~\u20ac780/quarter min).' },
+        { t:'Join a health insurance fund (mutualiteit)', d:'Register with CM, Solidaris, Helan, Partena, etc. for healthcare coverage as self-employed.' },
+        { t:'Check permits & licenses', d:'Food: FAVV registration. Construction: may require diplomas. Regulated professions: check with enterprise counter.' },
+        { t:'Get business insurance', d:'Recommended: BA beroepsaansprakelijkheid, gewaarborgd inkomen (guaranteed income if sick), fire insurance.' },
+        { t:'Set up accounting', d:'Hire a boekhouder or use software (Dexxter, Yuki, Exact). A BV legally needs an accountant. Budget: \u20ac100-300/month.' },
+        { t:'Check for subsidies & support', d:'VLAIO (Flanders): startlening, KMO-portefeuille. Brussels: starters bonus up to \u20ac4,000. Wallonia: 1890.be.' },
+    ],
+    timeline: [
+        { w:'Week 1', t:'Planning & Research', tasks:['Finalize business idea & value proposition','Research competitors in your area','Define target market & ideal customer','Write a basic 1-page business plan','Validate idea with 5 potential customers'] },
+        { w:'Week 2', t:'Financial Plan & Accountant', tasks:['Find and meet with an accountant (boekhouder)','Create financial plan (financieel plan) if doing BV','Decide on legal structure','Calculate startup budget & funding needs','Check personal savings / explore startlening'] },
+        { w:'Week 3', t:'Legal Setup', tasks:['Visit notary for incorporation deed (if BV)','Open a business bank account','Deposit starting capital (if BV)','Choose your company name & check availability','Draft founding documents / statutes'] },
+        { w:'Week 4', t:'Official Registration', tasks:['Register at enterprise counter (KBO number)','Activate BTW/VAT number','Join a social insurance fund','Join a mutualiteit (health insurance fund)','Apply for any required permits or licenses'] },
+        { w:'Week 5', t:'Operational Setup', tasks:['Get BA beroepsaansprakelijkheid insurance','Set up accounting software or accountant access','Set up invoicing system','Order business cards & stationery','Set up business email & phone number'] },
+        { w:'Week 6', t:'Marketing & Branding', tasks:['Register a domain name','Build your website (or hire someone)','Set up Google Business Profile','Create social media accounts (LinkedIn, Instagram, Facebook)','Prepare launch campaign & first content'] },
+        { w:'Week 7', t:'Soft Launch', tasks:['Announce to personal & professional network','Reach out to first 10 potential clients','Send your first invoices','Collect feedback & refine your offering','Set up a reviews/testimonials process'] },
+        { w:'Week 8', t:'Full Launch', tasks:['Launch full marketing campaign','Attend a networking event (Voka, Unizo, BNI)','Set up Google Ads or social media ads','Establish a weekly business routine','Celebrate \u2014 you\'re officially in business!'] },
+    ],
+    taxTips: [
+        '<strong>1. Use the 20% reduced rate (BV)</strong> First \u20ac100,000 of profit taxed at 20% instead of 25%. Condition: pay yourself min \u20ac45,000/year salary and be a "small company".',
+        '<strong>2. Auteursrechten (Copyright income)</strong> Creative/intellectual work (software, design, content): up to ~\u20ac73,070/year at only 15% withholding with 50% cost deduction on first tranche.',
+        '<strong>3. Maaltijdcheques & benefits</strong> Meal vouchers (\u20ac8/day, employer pays \u20ac6.91), eco-cheques (\u20ac250/year), company car. Tax-deductible for company, tax-free for you.',
+        '<strong>4. Liquidatiereserve</strong> Set aside profits (10% tax now), after 5 years extract at only 5% extra = 15% total vs 30% dividend tax.',
+        '<strong>5. Investeringsaftrek</strong> Deduct extra 8-13.5% of qualifying investments (computers, machines, energy-saving) on top of normal depreciation.',
+    ],
+    resources: `<div class="info-box"><strong>Government portals:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>KBO/BCE: business registration lookup</li><li>VLAIO (vlaio.be): Flemish subsidies & startup support</li><li>1819.brussels: Brussels startup support</li><li>1890.be: Wallonia business support</li><li>MyMinFin: tax portal</li><li>Intervat: BTW/VAT filing portal</li></ul></div><div class="info-box"><strong>Enterprise counters (ondernemingsloket):</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>Xerius, Acerta, Liantis, UCM, Partena, Securex</li><li>Cost: ~\u20ac90-100 for registration</li><li>They handle KBO registration + BTW activation</li></ul></div><div class="info-box"><strong>Social insurance funds:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>Same organizations as enterprise counters</li><li>Quarterly contributions: ~20.5% of net income (reduced for starters)</li><li>Mandatory for health insurance, pension, child benefits</li></ul></div>`,
+    costLabels: { notary: 'Notary (incorporation)', enterprise: 'Enterprise counter', accountant: 'Accountant (first year)', insurance: 'Insurance (BA + income)', website: 'Website & branding', social: 'Social contributions (Q1)', capital: 'Minimum capital' },
+    taxLabels: { grossRevenue:'Gross Revenue', expenses:'Business Expenses', grossProfit:'Gross Profit', salary:'Your Salary (from BV)', social:'Social Contributions (20.5%)', personalTax:'Personal Income Tax', netSalary:'Net Salary (in pocket)', companyProfit:'Company Profit (after salary)', corpTax:'Corporate Tax (20/25%)', retained:'Retained in Company', totalNet:'Total Net (salary + retained)', effectiveRate:'Effective Tax Rate', monthlyNet:'Monthly Net Salary', netProfit:'Net Profit', municipalTax:'Municipal Tax (~7%)', netIncome:'Net Income (in pocket)', monthlyNetIncome:'Monthly Net Income', bvBreakdown:'BV Tax Breakdown (Annual)', eenBreakdown:'Eenmanszaak Tax Breakdown (Annual)' },
+    metaLabels: { startup:'Startup', profit:'Profit', margin:'Margin', difficulty:'Difficulty', time:'Time to profit' },
+    summaryLabels: { idea:'Business Idea', structure:'Legal Structure', cost:'Estimated Startup Cost', progress:'Registration Steps Completed', notSelected:'Not selected' },
+},
+nl: {
+    headerTitle: 'Belgische Startersgids voor Ondernemers',
+    headerSub: 'Jouw complete stap-voor-stap gids van idee tot lancering',
+    steps: ['Bedrijfsidee', 'Rechtsvorm', 'Registratie', 'Kosten & Belasting', 'Lanceringstijdlijn'],
+    s1Title: 'Stap 1: Kies je bedrijfsidee',
+    s1Desc: 'Selecteer een bewezen bedrijfsmodel of voer je eigen idee in. Elke optie toont geschatte opstartkosten, maandelijkse winstpotentieel en moeilijkheidsgraad voor Belgi\u00eb.',
+    customTitle: 'Of voer je eigen idee in',
+    customPlaceholder: 'Bedrijfsnaam / idee',
+    customDescPlaceholder: 'Beschrijf je bedrijfsidee...',
+    customBtn: 'Gebruik mijn eigen idee',
+    s1Next: 'Volgende: Rechtsvorm \u2192',
+    s2Title: 'Stap 2: Kies je rechtsvorm',
+    s2Desc: 'Belgi\u00eb heeft het vennootschapsrecht hervormd in 2019 (WVV). Dit zijn de belangrijkste opties:',
+    s2Choose: 'Jouw keuze:',
+    s2Back: '\u2190 Terug', s2Next: 'Volgende: Registratie \u2192',
+    s3Title: 'Stap 3: Registreer je bedrijf',
+    s3Desc: 'Hier zijn alle registratiestappen in volgorde. Vink ze af naarmate je ze afrondt.',
+    s3Back: '\u2190 Terug', s3Next: 'Volgende: Kosten & Belasting \u2192',
+    s4Title: 'Stap 4: Opstartkosten & Belastingoptimalisatie',
+    s4Desc: 'Bereken je werkelijke kosten en ontdek hoeveel je overhoudt na Belgische belastingen.',
+    s4CostTitle: 'Opstartkosten schatting',
+    s4TaxTitle: 'Inkomsten- & Belastingcalculator',
+    s4TipsTitle: 'Belgische belastingoptimalisatie tips',
+    s4Back: '\u2190 Terug', s4Next: 'Volgende: Lanceringstijdlijn \u2192',
+    s5Title: 'Stap 5: Jouw lanceringstijdlijn',
+    s5Desc: 'Een realistisch week-per-week plan van nul tot operationeel.',
+    s5ResTitle: 'Essenti\u00eble bronnen',
+    s5SumTitle: 'Jouw bedrijfssamenvatting',
+    s5Back: '\u2190 Terug',
+    exportBtn: 'Exporteer volledig plan als tekst',
+    printBtn: 'Print deze pagina',
+    lblRevenue: 'Verwachte maandelijkse omzet (\u20ac)',
+    lblExpenses: 'Maandelijkse bedrijfskosten (\u20ac)',
+    lblStructure: 'Rechtsvorm',
+    lblSalary: 'Maandelijks loon vanuit BV (\u20ac)',
+    costIntro: 'Geschatte eenmalige opstartkosten op basis van jouw selecties:',
+    totalCost: 'Totale geschatte opstartkosten:',
+    recommended: 'AANBEVOLEN',
+    s2Tip1: '<strong>Pro tip voor de meeste starters:</strong> De BV (voorheen BVBA) is de beste keuze. Sinds 2019 is er geen minimumkapitaal meer nodig \u2014 je hebt enkel een degelijk financieel plan nodig dat aantoont dat je 2 jaar kunt draaien. Het verlaagd tarief van 20% vennootschapsbelasting op de eerste \u20ac100.000 winst is een enorm voordeel tegenover personenbelasting.',
+    s2Tip2: '<strong>Wanneer eenmanszaak behouden:</strong> Als je nettowinst onder ~\u20ac25.000/jaar blijft, kan een eenmanszaak eenvoudiger en goedkoper zijn. Zodra je die drempel overschrijdt, bespaart een BV meestal belastingen.',
+    s3Warning: '<strong>Belangrijke deadlines:</strong> Je MOET je aansluiten bij een sociaal verzekeringsfonds binnen 90 dagen na opstart. BTW-registratie moet gebeuren v\u00f3\u00f3r je eerste factuur. Laattijdige registratie = boetes.',
+    structHeaders: ['Rechtsvorm', 'Min. kapitaal', 'Aansprakelijkheid', 'Belastingtarief', 'Best voor'],
+    structures: [
+        ['Eenmanszaak', 'Geen', 'Onbeperkt persoonlijk', '25\u201350% (progressieve personenbelasting)', 'Freelancers, lage-risico diensten'],
+        ['BV (Besloten Vennootschap)', 'Geen minimum (financieel plan nodig)', 'Beperkt tot inbreng', '20% (verlaagd tot \u20ac100k) / 25%', 'Meeste bedrijven, schaalbaar'],
+        ['VOF (Vennootschap Onder Firma)', 'Geen', 'Onbeperkt & hoofdelijk', 'Personenbelasting per vennoot', 'Partnerschappen met hoog vertrouwen'],
+        ['CommV (Commanditaire Vennootschap)', 'Geen', 'Gemengd', 'Personenbelasting', 'Investeerder + uitbater combo\'s'],
+        ['NV (Naamloze Vennootschap)', '\u20ac61.500', 'Beperkt', '20% / 25%', 'Grote bedrijven, beurs'],
+    ],
+    structCards: [
+        { id:'eenmanszaak', icon:'\u{1F464}', name:'Eenmanszaak', desc:'Eenvoudigst op te starten, goedkoopst, maar persoonlijke aansprakelijkheid' },
+        { id:'bv', icon:'\u{1F3E2}', name:'BV', desc:'Beste belastingtarief, beperkte aansprakelijkheid, professioneel imago' },
+        { id:'vof', icon:'\u{1F91D}', name:'VOF', desc:'Eenvoudig partnerschap, gedeelde verantwoordelijkheid' },
+        { id:'nv', icon:'\u{1F3E3}', name:'NV', desc:'Voor grote operaties met significant kapitaal' },
+    ],
+    ideas: [
+        { id:'ecommerce', icon:'\u{1F6D2}', name:'E-commerce / Dropshipping', desc:'Verkoop producten online via je eigen webshop of platformen als Bol.com, Amazon.nl. Laag voorraadrisico met dropshipping.', startup:'500 - 3.000', profit:'1.000 - 10.000+', difficulty:'Gemiddeld', margin:'15-40%', time:'2-4 maanden' },
+        { id:'freelance-dev', icon:'\u{1F4BB}', name:'Freelance IT / Software Dev', desc:'Belgi\u00eb heeft enorme vraag naar IT-freelancers. Dagtarieven van \u20ac400-800 zijn gebruikelijk.', startup:'200 - 1.000', profit:'4.000 - 12.000+', difficulty:'Gemiddeld-Hoog', margin:'60-80%', time:'1-2 maanden' },
+        { id:'cleaning', icon:'\u{1F9F9}', name:'Schoonmaakbedrijf', desc:'Dienstencheques systeem garandeert betaling. Door overheid gesubsidieerd. Zeer stabiele vraag.', startup:'2.000 - 8.000', profit:'2.000 - 8.000', difficulty:'Laag-Gemiddeld', margin:'20-35%', time:'1-3 maanden' },
+        { id:'food-truck', icon:'\u{1F354}', name:'Food Truck / Dark Kitchen', desc:'Belgen houden van streetfood. Werk op markten, evenementen of via bezorg-apps. Lage vaste kosten.', startup:'10.000 - 40.000', profit:'2.000 - 7.000', difficulty:'Gemiddeld-Hoog', margin:'25-45%', time:'3-6 maanden' },
+        { id:'consulting', icon:'\u{1F4BC}', name:'Consulting / Coaching', desc:'Gebruik expertise in management, HR, marketing, financieel of duurzaamheid. Zeer hoge marges.', startup:'500 - 2.000', profit:'3.000 - 15.000+', difficulty:'Gemiddeld', margin:'70-90%', time:'2-4 maanden' },
+        { id:'renovation', icon:'\u{1F528}', name:'Renovatie / Klusjesman', desc:'Enorme vraag in Belgi\u00eb. Energierenovatie-subsidies drijven business. Vaklui zijn schaars.', startup:'5.000 - 20.000', profit:'3.000 - 10.000', difficulty:'Gemiddeld', margin:'30-50%', time:'1-3 maanden' },
+        { id:'digital-agency', icon:'\u{1F3A8}', name:'Digitaal Marketing Bureau', desc:'Help Belgische KMO\'s met SEO, social media, Google Ads, webdesign. Terugkerend inkomen via retainers.', startup:'500 - 3.000', profit:'2.000 - 15.000+', difficulty:'Gemiddeld', margin:'50-80%', time:'2-4 maanden' },
+        { id:'import-export', icon:'\u{1F6A2}', name:'Import / Export Handel', desc:'Belgi\u00eb\u2019s centrale EU-ligging + Haven van Antwerpen = handelscentrum. Importeer nicheproducten.', startup:'5.000 - 30.000', profit:'2.000 - 20.000+', difficulty:'Hoog', margin:'20-50%', time:'3-6 maanden' },
+    ],
+    regSteps: [
+        { t:'Schrijf je financieel plan (enkel BV)', d:'Wettelijk verplicht voor BV. Moet voldoende startkapitaal aantonen voor minstens 2 jaar. Laat een boekhouder helpen.' },
+        { t:'Open een zakelijke bankrekening', d:'Verplicht voor BV. Aanbevolen voor iedereen. Banken: KBC, BNP Paribas Fortis, ING, Belfius. Online: Qonto, Finom.' },
+        { t:'Notari\u00eble akte (enkel BV/NV)', d:'Voor een BV heb je een notaris nodig voor de oprichtingsakte. Kost: \u20ac1.000-2.000. Niet nodig voor eenmanszaak/VOF.' },
+        { t:'Registreer bij een ondernemingsloket', d:'Verplicht voor ALLE rechtsvormen. Ga naar Xerius, Acerta, Liantis, UCM etc. Zij registreren je in de KBO. Kost: ~\u20ac90-100.' },
+        { t:'Activeer je BTW-nummer', d:'Gebeurt bij hetzelfde ondernemingsloket. Je ondernemingsnummer wordt je BTW-nummer. Moet actief zijn v\u00f3\u00f3r eerste factuur.' },
+        { t:'Sluit aan bij een sociaal verzekeringsfonds', d:'Verplicht binnen 90 dagen. Kwartaalbijdragen ~20,5% van netto-inkomen. Starters betalen verlaagde bijdragen (~\u20ac780/kwartaal min).' },
+        { t:'Sluit aan bij een ziekenfonds (mutualiteit)', d:'Registreer bij CM, Solidaris, Helan, Partena, etc. voor ziekteverzekering als zelfstandige.' },
+        { t:'Controleer vergunningen & licenties', d:'Voeding: FAVV-registratie. Bouw: kan diploma\'s vereisen. Gereglementeerde beroepen: check bij ondernemingsloket.' },
+        { t:'Sluit bedrijfsverzekeringen af', d:'Aanbevolen: BA beroepsaansprakelijkheid, gewaarborgd inkomen (bij ziekte), brandverzekering.' },
+        { t:'Richt je boekhouding in', d:'Neem een boekhouder of gebruik software (Dexxter, Yuki, Exact). Een BV vereist wettelijk een boekhouder. Budget: \u20ac100-300/maand.' },
+        { t:'Check subsidies & ondersteuning', d:'VLAIO (Vlaanderen): startlening, KMO-portefeuille. Brussel: startersbonus tot \u20ac4.000. Walloni\u00eb: 1890.be.' },
+    ],
+    timeline: [
+        { w:'Week 1', t:'Planning & onderzoek', tasks:['Finaliseer bedrijfsidee & waardepropositie','Onderzoek concurrenten in jouw regio','Definieer doelmarkt & ideale klant','Schrijf een basic 1-pagina businessplan','Valideer idee met 5 potenti\u00eble klanten'] },
+        { w:'Week 2', t:'Financieel plan & boekhouder', tasks:['Zoek en spreek af met een boekhouder','Stel financieel plan op (als je BV doet)','Beslis over rechtsvorm','Bereken opstartbudget & financieringsbehoefte','Check eigen spaargeld / verken startlening'] },
+        { w:'Week 3', t:'Juridische opzet', tasks:['Bezoek notaris voor oprichtingsakte (bij BV)','Open een zakelijke bankrekening','Stort startkapitaal (bij BV)','Kies bedrijfsnaam & check beschikbaarheid','Stel oprichtingsdocumenten / statuten op'] },
+        { w:'Week 4', t:'Offici\u00eble registratie', tasks:['Registreer bij ondernemingsloket (KBO-nummer)','Activeer BTW-nummer','Sluit aan bij sociaal verzekeringsfonds','Sluit aan bij mutualiteit (ziekenfonds)','Vraag eventueel benodigde vergunningen aan'] },
+        { w:'Week 5', t:'Operationele opzet', tasks:['Sluit BA beroepsaansprakelijkheidsverzekering af','Stel boekhoudsoftware in of geef toegang aan boekhouder','Stel facturatiesysteem in','Bestel visitekaartjes & briefpapier','Stel zakelijk e-mail & telefoonnummer in'] },
+        { w:'Week 6', t:'Marketing & branding', tasks:['Registreer een domeinnaam','Bouw je website (of huur iemand in)','Stel Google Bedrijfsprofiel in','Maak social media accounts aan (LinkedIn, Instagram, Facebook)','Bereid lanceringscampagne & eerste content voor'] },
+        { w:'Week 7', t:'Zachte lancering', tasks:['Kondig aan bij persoonlijk & professioneel netwerk','Benader eerste 10 potenti\u00eble klanten','Stuur je eerste facturen','Verzamel feedback & verfijn je aanbod','Stel een reviews/testimonials proces in'] },
+        { w:'Week 8', t:'Volledige lancering', tasks:['Lanceer volledige marketingcampagne','Bezoek een netwerkevenement (Voka, Unizo, BNI)','Stel Google Ads of social media ads in','Cre\u00eber een wekelijkse bedrijfsroutine','Vier het \u2014 je bent officieel ondernemer!'] },
+    ],
+    taxTips: [
+        '<strong>1. Gebruik het verlaagd tarief van 20% (BV)</strong> Eerste \u20ac100.000 winst belast aan 20% i.p.v. 25%. Voorwaarde: betaal jezelf min \u20ac45.000/jaar loon en wees een "kleine vennootschap".',
+        '<strong>2. Auteursrechten</strong> Creatief/intellectueel werk (software, design, content): tot ~\u20ac73.070/jaar aan slechts 15% roerende voorheffing met 50% kostenaftrek op eerste schijf.',
+        '<strong>3. Maaltijdcheques & voordelen</strong> Maaltijdcheques (\u20ac8/dag, werkgever betaalt \u20ac6,91), ecocheques (\u20ac250/jaar), bedrijfswagen. Aftrekbaar voor bedrijf, belastingvrij voor jou.',
+        '<strong>4. Liquidatiereserve</strong> Zet winst opzij (10% belasting nu), na 5 jaar ophalen aan slechts 5% extra = 15% totaal i.p.v. 30% dividendbelasting.',
+        '<strong>5. Investeringsaftrek</strong> Trek extra 8-13,5% af van kwalificerende investeringen (computers, machines, energiebesparend) bovenop normale afschrijving.',
+    ],
+    resources: `<div class="info-box"><strong>Overheidsportalen:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>KBO/BCE: opzoeken bedrijfsregistratie</li><li>VLAIO (vlaio.be): Vlaamse subsidies & startondersteuning</li><li>1819.brussels: Brusselse startondersteuning</li><li>1890.be: Waalse bedrijfsondersteuning</li><li>MyMinFin: belastingportaal</li><li>Intervat: BTW-aangifteportaal</li></ul></div><div class="info-box"><strong>Ondernemingsloketten:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>Xerius, Acerta, Liantis, UCM, Partena, Securex</li><li>Kost: ~\u20ac90-100 voor registratie</li><li>Zij regelen KBO-registratie + BTW-activering</li></ul></div><div class="info-box"><strong>Sociale verzekeringsfondsen:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>Zelfde organisaties als ondernemingsloketten</li><li>Kwartaalbijdragen: ~20,5% van netto-inkomen (verlaagd voor starters)</li><li>Verplicht voor ziekteverzekering, pensioen, kinderbijslag</li></ul></div>`,
+    costLabels: { notary:'Notaris (oprichting)', enterprise:'Ondernemingsloket', accountant:'Boekhouder (eerste jaar)', insurance:'Verzekeringen (BA + inkomen)', website:'Website & branding', social:'Sociale bijdragen (K1)', capital:'Minimumkapitaal' },
+    taxLabels: { grossRevenue:'Bruto omzet', expenses:'Bedrijfskosten', grossProfit:'Brutowinst', salary:'Jouw loon (vanuit BV)', social:'Sociale bijdragen (20,5%)', personalTax:'Personenbelasting', netSalary:'Nettoloon (in je zak)', companyProfit:'Bedrijfswinst (na loon)', corpTax:'Vennootschapsbelasting (20/25%)', retained:'Ingehouden in bedrijf', totalNet:'Totaal netto (loon + ingehouden)', effectiveRate:'Effectief belastingtarief', monthlyNet:'Maandelijks nettoloon', netProfit:'Nettowinst', municipalTax:'Gemeentebelasting (~7%)', netIncome:'Netto-inkomen (in je zak)', monthlyNetIncome:'Maandelijks netto-inkomen', bvBreakdown:'BV Belastingoverzicht (Jaarlijks)', eenBreakdown:'Eenmanszaak Belastingoverzicht (Jaarlijks)' },
+    metaLabels: { startup:'Opstart', profit:'Winst', margin:'Marge', difficulty:'Moeilijkheid', time:'Tijd tot winst' },
+    summaryLabels: { idea:'Bedrijfsidee', structure:'Rechtsvorm', cost:'Geschatte opstartkosten', progress:'Registratiestappen afgevinkt', notSelected:'Niet geselecteerd' },
+},
+fr: {
+    headerTitle: 'Guide de Cr\u00e9ation d\'Entreprise en Belgique',
+    headerSub: 'Votre guide complet \u00e9tape par \u00e9tape, de l\'id\u00e9e au lancement',
+    steps: ['Id\u00e9e d\'entreprise', 'Forme juridique', 'Enregistrement', 'Co\u00fbts & Imp\u00f4ts', 'Calendrier de lancement'],
+    s1Title: '\u00c9tape 1 : Choisissez votre id\u00e9e d\'entreprise',
+    s1Desc: 'S\u00e9lectionnez un mod\u00e8le d\'\u00e9prouv\u00e9 ou entrez le v\u00f4tre. Chaque option montre les co\u00fbts de d\u00e9marrage estim\u00e9s, le potentiel de profit mensuel et la difficult\u00e9 pour la Belgique.',
+    customTitle: 'Ou entrez votre propre id\u00e9e',
+    customPlaceholder: 'Nom / id\u00e9e d\'entreprise',
+    customDescPlaceholder: 'D\u00e9crivez votre id\u00e9e d\'entreprise...',
+    customBtn: 'Utiliser mon propre id\u00e9e',
+    s1Next: 'Suivant : Forme juridique \u2192',
+    s2Title: '\u00c9tape 2 : Choisissez votre forme juridique',
+    s2Desc: 'La Belgique a r\u00e9form\u00e9 son droit des soci\u00e9t\u00e9s en 2019 (CSA). Voici les principales options :',
+    s2Choose: 'Votre choix :',
+    s2Back: '\u2190 Retour', s2Next: 'Suivant : Enregistrement \u2192',
+    s3Title: '\u00c9tape 3 : Enregistrez votre entreprise',
+    s3Desc: 'Voici toutes les \u00e9tapes d\'enregistrement dans l\'ordre. Cochez-les au fur et \u00e0 mesure.',
+    s3Back: '\u2190 Retour', s3Next: 'Suivant : Co\u00fbts & Imp\u00f4ts \u2192',
+    s4Title: '\u00c9tape 4 : Co\u00fbts de d\u00e9marrage & Optimisation fiscale',
+    s4Desc: 'Calculez vos co\u00fbts r\u00e9els et d\u00e9couvrez combien vous gardez apr\u00e8s les imp\u00f4ts belges.',
+    s4CostTitle: 'Estimation des co\u00fbts de d\u00e9marrage',
+    s4TaxTitle: 'Calculateur de revenus & imp\u00f4ts',
+    s4TipsTitle: 'Conseils d\'optimisation fiscale en Belgique',
+    s4Back: '\u2190 Retour', s4Next: 'Suivant : Calendrier de lancement \u2192',
+    s5Title: '\u00c9tape 5 : Votre calendrier de lancement',
+    s5Desc: 'Un plan r\u00e9aliste semaine par semaine, de z\u00e9ro \u00e0 op\u00e9rationnel.',
+    s5ResTitle: 'Ressources essentielles',
+    s5SumTitle: 'R\u00e9sum\u00e9 de votre entreprise',
+    s5Back: '\u2190 Retour',
+    exportBtn: 'Exporter le plan complet en texte',
+    printBtn: 'Imprimer cette page',
+    lblRevenue: 'Revenu mensuel esp\u00e9r\u00e9 (\u20ac)',
+    lblExpenses: 'D\u00e9penses mensuelles (\u20ac)',
+    lblStructure: 'Forme juridique',
+    lblSalary: 'Salaire mensuel de la SRL (\u20ac)',
+    costIntro: 'Co\u00fbts de d\u00e9marrage uniques estim\u00e9s selon vos s\u00e9lections :',
+    totalCost: 'Co\u00fbt total estim\u00e9 de d\u00e9marrage :',
+    recommended: 'RECOMMAND\u00c9',
+    s2Tip1: '<strong>Conseil pour la plupart des starters :</strong> La SRL (anciennement SPRL) est le meilleur choix. Depuis 2019, il n\'y a plus de capital minimum \u2014 il faut juste un plan financier solide montrant 2 ans de fonctionnement. Le taux r\u00e9duit de 20% d\'imp\u00f4t des soci\u00e9t\u00e9s sur les premiers 100.000\u20ac de b\u00e9n\u00e9fice est un \u00e9norme avantage.',
+    s2Tip2: '<strong>Quand rester en personne physique :</strong> Si votre b\u00e9n\u00e9fice net reste sous ~25.000\u20ac/an, une entreprise individuelle peut \u00eatre plus simple et moins ch\u00e8re. Au-del\u00e0, une SRL fait g\u00e9n\u00e9ralement \u00e9conomiser des imp\u00f4ts.',
+    s3Warning: '<strong>D\u00e9lais importants :</strong> Vous DEVEZ vous affilier \u00e0 une caisse d\'assurances sociales dans les 90 jours. L\'enregistrement TVA doit \u00eatre fait avant votre premi\u00e8re facture. Retard = amendes.',
+    structHeaders: ['Forme', 'Capital min.', 'Responsabilit\u00e9', 'Taux d\'imposition', 'Id\u00e9al pour'],
+    structures: [
+        ['Entreprise individuelle', 'Aucun', 'Illimit\u00e9e personnelle', '25\u201350% (imp\u00f4t progressif sur le revenu)', 'Freelances, services \u00e0 faible risque'],
+        ['SRL (Soci\u00e9t\u00e9 \u00e0 Responsabilit\u00e9 Limit\u00e9e)', 'Aucun minimum (plan financier requis)', 'Limit\u00e9e \u00e0 l\'apport', '20% (r\u00e9duit jusqu\'\u00e0 100k\u20ac) / 25%', 'La plupart des entreprises, \u00e9volutif'],
+        ['SNC (Soci\u00e9t\u00e9 en Nom Collectif)', 'Aucun', 'Illimit\u00e9e & solidaire', 'Imp\u00f4t sur le revenu par associ\u00e9', 'Partenariats de haute confiance'],
+        ['SComm (Soci\u00e9t\u00e9 en Commandite)', 'Aucun', 'Mixte', 'Imp\u00f4t sur le revenu', 'Combos investisseur + exploitant'],
+        ['SA (Soci\u00e9t\u00e9 Anonyme)', '61.500\u20ac', 'Limit\u00e9e', '20% / 25%', 'Grandes entreprises, bourse'],
+    ],
+    structCards: [
+        { id:'eenmanszaak', icon:'\u{1F464}', name:'Entreprise individuelle', desc:'La plus simple \u00e0 cr\u00e9er, la moins ch\u00e8re, mais responsabilit\u00e9 personnelle' },
+        { id:'bv', icon:'\u{1F3E2}', name:'SRL', desc:'Meilleur taux d\'imposition, responsabilit\u00e9 limit\u00e9e, image professionnelle' },
+        { id:'vof', icon:'\u{1F91D}', name:'SNC', desc:'Partenariat simple, responsabilit\u00e9 partag\u00e9e' },
+        { id:'nv', icon:'\u{1F3E3}', name:'SA', desc:'Pour les grandes op\u00e9rations n\u00e9cessitant un capital important' },
+    ],
+    ideas: [
+        { id:'ecommerce', icon:'\u{1F6D2}', name:'E-commerce / Dropshipping', desc:'Vendez en ligne via votre propre boutique ou des plateformes comme Bol.com, Amazon. Faible risque de stock avec le dropshipping.', startup:'500 - 3.000', profit:'1.000 - 10.000+', difficulty:'Moyen', margin:'15-40%', time:'2-4 mois' },
+        { id:'freelance-dev', icon:'\u{1F4BB}', name:'Freelance IT / D\u00e9veloppeur', desc:'La Belgique a une demande \u00e9norme de freelances IT. Tarifs journaliers de 400-800\u20ac courants.', startup:'200 - 1.000', profit:'4.000 - 12.000+', difficulty:'Moyen-\u00c9lev\u00e9', margin:'60-80%', time:'1-2 mois' },
+        { id:'cleaning', icon:'\u{1F9F9}', name:'Soci\u00e9t\u00e9 de nettoyage', desc:'Syst\u00e8me de titres-services garantit le paiement. Subsidi\u00e9 par l\'\u00c9tat. Demande tr\u00e8s stable.', startup:'2.000 - 8.000', profit:'2.000 - 8.000', difficulty:'Faible-Moyen', margin:'20-35%', time:'1-3 mois' },
+        { id:'food-truck', icon:'\u{1F354}', name:'Food Truck / Dark Kitchen', desc:'Les Belges adorent la street food. Travaillez aux march\u00e9s, \u00e9v\u00e9nements ou via applis de livraison. Co\u00fbts fixes bas.', startup:'10.000 - 40.000', profit:'2.000 - 7.000', difficulty:'Moyen-\u00c9lev\u00e9', margin:'25-45%', time:'3-6 mois' },
+        { id:'consulting', icon:'\u{1F4BC}', name:'Consulting / Coaching', desc:'Utilisez votre expertise en gestion, RH, marketing, finance ou durabilit\u00e9. Marges tr\u00e8s \u00e9lev\u00e9es.', startup:'500 - 2.000', profit:'3.000 - 15.000+', difficulty:'Moyen', margin:'70-90%', time:'2-4 mois' },
+        { id:'renovation', icon:'\u{1F528}', name:'R\u00e9novation / Bricoleur', desc:'\u00c9norme demande en Belgique. Les primes \u00e9nerg\u00e9tiques stimulent le business. Les artisans sont rares.', startup:'5.000 - 20.000', profit:'3.000 - 10.000', difficulty:'Moyen', margin:'30-50%', time:'1-3 mois' },
+        { id:'digital-agency', icon:'\u{1F3A8}', name:'Agence de marketing digital', desc:'Aidez les PME belges avec SEO, r\u00e9seaux sociaux, Google Ads, web design. Revenus r\u00e9currents via abonnements.', startup:'500 - 3.000', profit:'2.000 - 15.000+', difficulty:'Moyen', margin:'50-80%', time:'2-4 mois' },
+        { id:'import-export', icon:'\u{1F6A2}', name:'Import / Export', desc:'Position centrale de la Belgique dans l\'UE + Port d\'Anvers = hub commercial. Importez des produits de niche.', startup:'5.000 - 30.000', profit:'2.000 - 20.000+', difficulty:'\u00c9lev\u00e9', margin:'20-50%', time:'3-6 mois' },
+    ],
+    regSteps: [
+        { t:'R\u00e9diger votre plan financier (SRL uniquement)', d:'Obligatoire par la loi pour la SRL. Doit montrer un capital suffisant pour 2 ans minimum. Faites-vous aider par un comptable.' },
+        { t:'Ouvrir un compte bancaire professionnel', d:'Obligatoire pour SRL. Recommand\u00e9 pour tous. Banques : KBC, BNP Paribas Fortis, ING, Belfius. En ligne : Qonto, Finom.' },
+        { t:'Acte notari\u00e9 (SRL/SA uniquement)', d:'Pour une SRL, un notaire est requis pour l\'acte constitutif. Co\u00fbt : 1.000-2.000\u20ac. Non requis pour entreprise individuelle/SNC.' },
+        { t:'S\'inscrire \u00e0 un guichet d\'entreprises', d:'Obligatoire pour TOUTES les formes. Allez chez Xerius, Acerta, Liantis, UCM etc. Ils vous inscrivent \u00e0 la BCE. Co\u00fbt : ~90-100\u20ac.' },
+        { t:'Activer votre num\u00e9ro de TVA', d:'Au m\u00eame guichet d\'entreprises. Votre num\u00e9ro d\'entreprise devient votre num\u00e9ro TVA. Doit \u00eatre actif avant la premi\u00e8re facture.' },
+        { t:'S\'affilier \u00e0 une caisse d\'assurances sociales', d:'Obligatoire dans les 90 jours. Cotisations trimestrielles ~20,5% du revenu net. Starters : cotisations r\u00e9duites (~780\u20ac/trimestre min).' },
+        { t:'S\'affilier \u00e0 une mutualit\u00e9', d:'Inscrivez-vous aupr\u00e8s de la MC, Solidaris, Helan, Partenamut, etc. pour la couverture sant\u00e9 en tant qu\'ind\u00e9pendant.' },
+        { t:'V\u00e9rifier les permis & licences', d:'Alimentation : enregistrement AFSCA. Construction : dipl\u00f4mes possiblement requis. Professions r\u00e9glement\u00e9es : v\u00e9rifiez au guichet.' },
+        { t:'Souscrire une assurance professionnelle', d:'Recommand\u00e9 : RC professionnelle, revenu garanti (en cas de maladie), assurance incendie.' },
+        { t:'Mettre en place la comptabilit\u00e9', d:'Engagez un comptable ou utilisez un logiciel (Dexxter, Yuki, Exact). Une SRL exige l\u00e9galement un comptable. Budget : 100-300\u20ac/mois.' },
+        { t:'V\u00e9rifier les aides & subventions', d:'VLAIO (Flandre) : startlening, KMO-portefeuille. Bruxelles : prime starter jusqu\'\u00e0 4.000\u20ac. Wallonie : 1890.be.' },
+    ],
+    timeline: [
+        { w:'Semaine 1', t:'Planification & recherche', tasks:['Finaliser l\'id\u00e9e & la proposition de valeur','Rechercher les concurrents dans votre r\u00e9gion','D\u00e9finir le march\u00e9 cible & le client id\u00e9al','R\u00e9diger un business plan basique d\'1 page','Valider l\'id\u00e9e avec 5 clients potentiels'] },
+        { w:'Semaine 2', t:'Plan financier & comptable', tasks:['Trouver et rencontrer un comptable','Cr\u00e9er le plan financier (si SRL)','D\u00e9cider de la forme juridique','Calculer le budget de d\u00e9marrage & besoins de financement','V\u00e9rifier \u00e9pargne personnelle / explorer le startlening'] },
+        { w:'Semaine 3', t:'Mise en place juridique', tasks:['Visiter le notaire pour l\'acte constitutif (si SRL)','Ouvrir un compte bancaire professionnel','D\u00e9poser le capital de d\u00e9part (si SRL)','Choisir le nom de soci\u00e9t\u00e9 & v\u00e9rifier la disponibilit\u00e9','R\u00e9diger les documents fondateurs / statuts'] },
+        { w:'Semaine 4', t:'Enregistrement officiel', tasks:['S\'inscrire au guichet d\'entreprises (num\u00e9ro BCE)','Activer le num\u00e9ro de TVA','S\'affilier \u00e0 une caisse d\'assurances sociales','S\'affilier \u00e0 une mutualit\u00e9 (assurance sant\u00e9)','Demander les permis ou licences n\u00e9cessaires'] },
+        { w:'Semaine 5', t:'Mise en place op\u00e9rationnelle', tasks:['Souscrire une assurance RC professionnelle','Configurer le logiciel comptable ou acc\u00e8s comptable','Mettre en place le syst\u00e8me de facturation','Commander cartes de visite & papeterie','Configurer email & num\u00e9ro de t\u00e9l\u00e9phone professionnels'] },
+        { w:'Semaine 6', t:'Marketing & branding', tasks:['Enregistrer un nom de domaine','Cr\u00e9er votre site web (ou engager quelqu\'un)','Configurer Google Business Profile','Cr\u00e9er les comptes r\u00e9seaux sociaux (LinkedIn, Instagram, Facebook)','Pr\u00e9parer la campagne de lancement & premier contenu'] },
+        { w:'Semaine 7', t:'Lancement doux', tasks:['Annoncer \u00e0 votre r\u00e9seau personnel & professionnel','Contacter les 10 premiers clients potentiels','Envoyer vos premi\u00e8res factures','Collecter les retours & affiner votre offre','Mettre en place un processus d\'avis/t\u00e9moignages'] },
+        { w:'Semaine 8', t:'Lancement complet', tasks:['Lancer la campagne marketing compl\u00e8te','Participer \u00e0 un \u00e9v\u00e9nement networking (Voka, Unizo, UCM, BNI)','Configurer Google Ads ou publicit\u00e9s r\u00e9seaux sociaux','\u00c9tablir une routine hebdomadaire','C\u00e9l\u00e9brez \u2014 vous \u00eates officiellement en activit\u00e9 !'] },
+    ],
+    taxTips: [
+        '<strong>1. Taux r\u00e9duit de 20% (SRL)</strong> Les premiers 100.000\u20ac de b\u00e9n\u00e9fice tax\u00e9s \u00e0 20% au lieu de 25%. Condition : se verser un salaire min de 45.000\u20ac/an et \u00eatre une "petite soci\u00e9t\u00e9".',
+        '<strong>2. Droits d\'auteur</strong> Travail cr\u00e9atif/intellectuel (logiciel, design, contenu) : jusqu\'\u00e0 ~73.070\u20ac/an \u00e0 seulement 15% de pr\u00e9compte avec d\u00e9duction de 50% des frais sur la premi\u00e8re tranche.',
+        '<strong>3. Ch\u00e8ques-repas & avantages</strong> Ch\u00e8ques-repas (8\u20ac/jour, employeur paie 6,91\u20ac), \u00e9co-ch\u00e8ques (250\u20ac/an), voiture de soci\u00e9t\u00e9. D\u00e9ductible pour la soci\u00e9t\u00e9, exon\u00e9r\u00e9 pour vous.',
+        '<strong>4. R\u00e9serve de liquidation</strong> Mettez des b\u00e9n\u00e9fices de c\u00f4t\u00e9 (10% d\'imp\u00f4t maintenant), apr\u00e8s 5 ans retirez \u00e0 seulement 5% suppl\u00e9mentaire = 15% total vs 30% de pr\u00e9compte sur dividendes.',
+        '<strong>5. D\u00e9duction pour investissement</strong> D\u00e9duisez 8-13,5% suppl\u00e9mentaire sur les investissements qualifiants (ordinateurs, machines, \u00e9conomies d\'\u00e9nergie) en plus de l\'amortissement normal.',
+    ],
+    resources: `<div class="info-box"><strong>Portails gouvernementaux :</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>BCE/KBO : recherche d'enregistrement d'entreprise</li><li>VLAIO (vlaio.be) : subventions flamandes & soutien aux starters</li><li>1819.brussels : soutien aux starters bruxellois</li><li>1890.be : soutien aux entreprises wallonnes</li><li>MyMinFin : portail fiscal</li><li>Intervat : portail de d\u00e9claration TVA</li></ul></div><div class="info-box"><strong>Guichets d'entreprises :</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>Xerius, Acerta, Liantis, UCM, Partena, Securex</li><li>Co\u00fbt : ~90-100\u20ac pour l'enregistrement</li><li>Ils g\u00e8rent l'inscription BCE + activation TVA</li></ul></div><div class="info-box"><strong>Caisses d'assurances sociales :</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;"><li>M\u00eames organisations que les guichets d'entreprises</li><li>Cotisations trimestrielles : ~20,5% du revenu net (r\u00e9duit pour starters)</li><li>Obligatoire pour assurance maladie, pension, allocations familiales</li></ul></div>`,
+    costLabels: { notary:'Notaire (constitution)', enterprise:'Guichet d\'entreprises', accountant:'Comptable (premi\u00e8re ann\u00e9e)', insurance:'Assurances (RC + revenu)', website:'Site web & branding', social:'Cotisations sociales (T1)', capital:'Capital minimum' },
+    taxLabels: { grossRevenue:'Chiffre d\'affaires brut', expenses:'D\u00e9penses professionnelles', grossProfit:'B\u00e9n\u00e9fice brut', salary:'Votre salaire (de la SRL)', social:'Cotisations sociales (20,5%)', personalTax:'Imp\u00f4t sur le revenu', netSalary:'Salaire net (en poche)', companyProfit:'B\u00e9n\u00e9fice soci\u00e9t\u00e9 (apr\u00e8s salaire)', corpTax:'Imp\u00f4t des soci\u00e9t\u00e9s (20/25%)', retained:'Retenu dans la soci\u00e9t\u00e9', totalNet:'Total net (salaire + retenu)', effectiveRate:'Taux d\'imposition effectif', monthlyNet:'Salaire net mensuel', netProfit:'B\u00e9n\u00e9fice net', municipalTax:'Taxe communale (~7%)', netIncome:'Revenu net (en poche)', monthlyNetIncome:'Revenu net mensuel', bvBreakdown:'Ventilation fiscale SRL (Annuel)', eenBreakdown:'Ventilation fiscale Entreprise individuelle (Annuel)' },
+    metaLabels: { startup:'D\u00e9marrage', profit:'Profit', margin:'Marge', difficulty:'Difficult\u00e9', time:'D\u00e9lai de rentabilit\u00e9' },
+    summaryLabels: { idea:'Id\u00e9e d\'entreprise', structure:'Forme juridique', cost:'Co\u00fbt de d\u00e9marrage estim\u00e9', progress:'\u00c9tapes d\'enregistrement compl\u00e9t\u00e9es', notSelected:'Non s\u00e9lectionn\u00e9' },
+},
+};
+
+// State
+const state = { currentStep: 1, totalSteps: 5, selectedIdea: null, selectedStructure: null, checkedItems: new Set(), lang: 'en', timelineChecked: new Set() };
+
+function t() { return T[state.lang]; }
+
+function setLang(lang) {
+    state.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === lang.toUpperCase()));
+    renderAll();
+}
+
+function renderAll() {
+    const l = t();
+    document.getElementById('headerTitle').textContent = l.headerTitle;
+    document.getElementById('headerSub').textContent = l.headerSub;
+    document.getElementById('s1Title').textContent = l.s1Title;
+    document.getElementById('s1Desc').textContent = l.s1Desc;
+    document.getElementById('customTitle').textContent = l.customTitle;
+    document.getElementById('customIdeaName').placeholder = l.customPlaceholder;
+    document.getElementById('customIdeaDesc').placeholder = l.customDescPlaceholder;
+    document.getElementById('customBtn').textContent = l.customBtn;
+    document.getElementById('s1Next').innerHTML = l.s1Next;
+    document.getElementById('s2Title').textContent = l.s2Title;
+    document.getElementById('s2Desc').textContent = l.s2Desc;
+    document.getElementById('s2Choose').textContent = l.s2Choose;
+    document.getElementById('s2Back').innerHTML = l.s2Back;
+    document.getElementById('s2Next').innerHTML = l.s2Next;
+    document.getElementById('s3Title').textContent = l.s3Title;
+    document.getElementById('s3Desc').textContent = l.s3Desc;
+    document.getElementById('s3Warning').innerHTML = l.s3Warning;
+    document.getElementById('s3Back').innerHTML = l.s3Back;
+    document.getElementById('s3Next').innerHTML = l.s3Next;
+    document.getElementById('s4Title').innerHTML = l.s4Title;
+    document.getElementById('s4Desc').textContent = l.s4Desc;
+    document.getElementById('s4CostTitle').textContent = l.s4CostTitle;
+    document.getElementById('s4TaxTitle').textContent = l.s4TaxTitle;
+    document.getElementById('s4TipsTitle').textContent = l.s4TipsTitle;
+    document.getElementById('s4Back').innerHTML = l.s4Back;
+    document.getElementById('s4Next').innerHTML = l.s4Next;
+    document.getElementById('s5Title').textContent = l.s5Title;
+    document.getElementById('s5Desc').textContent = l.s5Desc;
+    document.getElementById('s5ResTitle').textContent = l.s5ResTitle;
+    document.getElementById('s5SumTitle').textContent = l.s5SumTitle;
+    document.getElementById('s5Back').innerHTML = l.s5Back;
+    document.getElementById('exportBtn').textContent = l.exportBtn;
+    document.getElementById('printBtn').textContent = l.printBtn;
+    document.getElementById('lblRevenue').textContent = l.lblRevenue;
+    document.getElementById('lblExpenses').textContent = l.lblExpenses;
+    document.getElementById('lblStructure').textContent = l.lblStructure;
+    document.getElementById('lblSalary').textContent = l.lblSalary;
+    document.getElementById('s2Tip1').innerHTML = l.s2Tip1;
+    document.getElementById('s2Tip2').innerHTML = l.s2Tip2;
+    document.getElementById('resourcesContent').innerHTML = l.resources;
+    renderProgress();
+    renderIdeas();
+    renderStructTable();
+    renderStructCards();
+    renderRegistration();
+    renderTimeline();
+    renderTaxTips();
+    renderCosts();
+    calculateTax();
+    if (state.currentStep === 5) renderSummary();
+}
+
+function renderProgress() {
+    const l = t();
+    document.getElementById('progressSteps').innerHTML = l.steps.map((s, i) => {
+        const n = i + 1;
+        return `<div class="progress-step ${n === state.currentStep ? 'active' : ''} ${n < state.currentStep ? 'completed' : ''}" onclick="goToStep(${n})">
+            <span class="step-num">${n < state.currentStep ? '\u2713' : n}</span>${s}</div>`;
+    }).join('');
+    document.getElementById('progressFill').style.width = `${((state.currentStep - 1) / (state.totalSteps - 1)) * 100}%`;
+}
+
+function renderIdeas() {
+    const l = t();
+    document.getElementById('ideaGrid').innerHTML = l.ideas.map(idea => `
+        <div class="idea-card ${state.selectedIdea === idea.id ? 'selected' : ''}" onclick="selectIdea('${idea.id}', this)">
+            <div class="idea-icon">${idea.icon}</div>
+            <h4>${idea.name}</h4>
+            <p>${idea.desc}</p>
+            <div class="idea-meta">
+                <span>${l.metaLabels.startup}: \u20ac${idea.startup}</span>
+                <span class="profit-indicator">${l.metaLabels.profit}: \u20ac${idea.profit}/mo</span>
+                <span>${l.metaLabels.margin}: ${idea.margin}</span>
+            </div>
+            <div class="idea-meta" style="margin-top:0.5rem;">
+                <span>${l.metaLabels.difficulty}: ${idea.difficulty}</span>
+                <span>${l.metaLabels.time}: ${idea.time}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderStructTable() {
+    const l = t();
+    document.getElementById('structureTable').innerHTML = `
+        <thead><tr>${l.structHeaders.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+        <tbody>${l.structures.map((row, i) => `<tr>${row.map((cell, j) => `<td>${j === 0 && i === 1 ? `<strong>${cell}</strong> <span class="recommend-badge">${l.recommended}</span>` : (j === 0 ? `<strong>${cell}</strong>` : cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+    `;
+}
+
+function renderStructCards() {
+    const l = t();
+    document.getElementById('structGrid').innerHTML = l.structCards.map(s => `
+        <div class="idea-card ${state.selectedStructure === s.id ? 'selected' : ''}" onclick="selectStructure('${s.id}', this)">
+            <div class="idea-icon">${s.icon}</div>
+            <h4>${s.name}</h4>
+            <p>${s.desc}</p>
+        </div>
+    `).join('');
+}
+
+function renderRegistration() {
+    const l = t();
+    document.getElementById('registrationChecklist').innerHTML = l.regSteps.map((step, i) => `
+        <li class="${state.checkedItems.has(i) ? 'checked' : ''}" onclick="toggleCheck(${i}, this)">
+            <div class="check-box">${state.checkedItems.has(i) ? '\u2713' : ''}</div>
+            <div><div class="check-text"><strong>${i + 1}. ${step.t}</strong></div><div class="check-details">${step.d}</div></div>
+        </li>
+    `).join('');
+}
+
+function renderTimeline() {
+    const l = t();
+    document.getElementById('timeline').innerHTML = l.timeline.map((item, wi) => {
+        const done = item.tasks.filter((_,ti) => state.timelineChecked.has(`${wi}-${ti}`)).length;
+        const total = item.tasks.length;
+        const pct = Math.round((done / total) * 100);
+        return `<div class="timeline-item">
+            <div class="week">${item.w}</div><h4>${item.t}</h4>
+            <ul class="tl-tasks">${item.tasks.map((task, ti) => {
+                const key = `${wi}-${ti}`;
+                const checked = state.timelineChecked.has(key);
+                return `<li class="${checked ? 'done' : ''}" onclick="toggleTimeline('${key}')">
+                    <div class="tl-check">${checked ? '\u2713' : ''}</div><span>${task}</span></li>`;
+            }).join('')}</ul>
+            <div class="tl-progress">${done}/${total} ${done === total ? '\u2705' : ''}
+                <div class="tl-progress-bar"><div class="tl-progress-fill" style="width:${pct}%"></div></div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function toggleTimeline(key) {
+    state.timelineChecked.has(key) ? state.timelineChecked.delete(key) : state.timelineChecked.add(key);
+    renderTimeline();
+}
+
+function renderTaxTips() {
+    const l = t();
+    document.getElementById('taxTips').innerHTML = l.taxTips.map(tip => `<div class="info-box tip">${tip}</div>`).join('');
+}
+
+function getCosts() {
+    const l = t();
+    const struct = state.selectedStructure || 'bv';
+    const base = [
+        { label: l.costLabels.enterprise, amount: 95 },
+        { label: l.costLabels.accountant, amount: struct === 'eenmanszaak' ? 600 : 2400 },
+        { label: l.costLabels.insurance, amount: 800 },
+        { label: l.costLabels.website, amount: 1500 },
+        { label: l.costLabels.social, amount: 780 },
+    ];
+    if (struct === 'bv' || struct === 'nv') base.unshift({ label: l.costLabels.notary, amount: struct === 'nv' ? 2500 : 1500 });
+    if (struct === 'nv') base.push({ label: l.costLabels.capital, amount: 61500 });
+    return base;
+}
+
+function renderCosts() {
+    const l = t();
+    const costs = getCosts();
+    const maxCost = Math.max(...costs.map(c => c.amount));
+    const colors = ['#3b82f6', '#f59e0b', '#6366f1', '#16a34a', '#64748b', '#ec4899'];
+    document.getElementById('costBreakdown').innerHTML = `
+        <p style="margin-bottom:1rem;color:var(--muted);">${l.costIntro}</p>
+        ${costs.map((c, i) => `<div class="cost-bar"><div class="cost-label">${c.label}</div><div class="bar-track"><div class="bar-fill" style="width:${(c.amount / maxCost) * 100}%;background:${colors[i % colors.length]};">\u20ac${c.amount.toLocaleString()}</div></div></div>`).join('')}
+        <div style="margin-top:1rem;font-size:1.1rem;font-weight:600;">${l.totalCost} <span style="color:var(--accent2);">\u20ac${costs.reduce((s, c) => s + c.amount, 0).toLocaleString()}</span></div>
+    `;
+}
+
+function calculateTax() {
+    const l = t().taxLabels;
+    const revenue = parseFloat(document.getElementById('monthlyRevenue').value) || 0;
+    const expenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
+    const structure = document.getElementById('taxStructure').value;
+    const bvSalary = parseFloat(document.getElementById('bvSalary').value) || 0;
+    const annualRevenue = revenue * 12, annualExpenses = expenses * 12, annualProfit = annualRevenue - annualExpenses;
+    let result = '';
+
+    if (structure === 'bv') {
+        const annualSalary = Math.min(bvSalary * 12, annualProfit);
+        const companyProfit = annualProfit - annualSalary;
+        const socialContrib = annualSalary * 0.205;
+        const taxableIncome = annualSalary - socialContrib;
+        const personalTax = calcPersonalTax(taxableIncome);
+        const corpTax = companyProfit <= 100000 ? companyProfit * 0.20 : 100000 * 0.20 + (companyProfit - 100000) * 0.25;
+        const netSalary = annualSalary - socialContrib - personalTax;
+        const retainedProfit = companyProfit - corpTax;
+        const totalNet = netSalary + retainedProfit;
+        const effectiveRate = annualProfit > 0 ? ((annualProfit - totalNet) / annualProfit * 100) : 0;
+        result = `<h3>${l.bvBreakdown}</h3>
+            <div class="result-row"><span class="label">${l.grossRevenue}</span><span class="value">\u20ac${annualRevenue.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.expenses}</span><span class="value negative">-\u20ac${annualExpenses.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.grossProfit}</span><span class="value">\u20ac${annualProfit.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.salary}</span><span class="value">\u20ac${annualSalary.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.social}</span><span class="value negative">-\u20ac${Math.round(socialContrib).toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.personalTax}</span><span class="value negative">-\u20ac${Math.round(personalTax).toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.netSalary}</span><span class="value positive">\u20ac${Math.round(netSalary).toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.companyProfit}</span><span class="value">\u20ac${companyProfit.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.corpTax}</span><span class="value negative">-\u20ac${Math.round(corpTax).toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.retained}</span><span class="value positive">\u20ac${Math.round(retainedProfit).toLocaleString()}</span></div>
+            <hr style="border-color:#e2e8f0;margin:0.5rem 0;">
+            <div class="result-row"><span class="label"><strong>${l.totalNet}</strong></span><span class="value positive" style="font-size:1.2rem;">\u20ac${Math.round(totalNet).toLocaleString()}/year</span></div>
+            <div class="result-row"><span class="label">${l.effectiveRate}</span><span class="value">${effectiveRate.toFixed(1)}%</span></div>
+            <div class="result-row"><span class="label">${l.monthlyNet}</span><span class="value positive">\u20ac${Math.round(netSalary / 12).toLocaleString()}/mo</span></div>`;
+    } else {
+        const socialContrib = annualProfit * 0.205;
+        const taxableIncome = annualProfit - socialContrib;
+        const personalTax = calcPersonalTax(taxableIncome);
+        const municipalTax = personalTax * 0.07;
+        const totalTax = socialContrib + personalTax + municipalTax;
+        const netIncome = annualProfit - totalTax;
+        const effectiveRate = annualProfit > 0 ? (totalTax / annualProfit * 100) : 0;
+        result = `<h3>${l.eenBreakdown}</h3>
+            <div class="result-row"><span class="label">${l.grossRevenue}</span><span class="value">\u20ac${annualRevenue.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.expenses}</span><span class="value negative">-\u20ac${annualExpenses.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.netProfit}</span><span class="value">\u20ac${annualProfit.toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.social}</span><span class="value negative">-\u20ac${Math.round(socialContrib).toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.personalTax}</span><span class="value negative">-\u20ac${Math.round(personalTax).toLocaleString()}</span></div>
+            <div class="result-row"><span class="label">${l.municipalTax}</span><span class="value negative">-\u20ac${Math.round(municipalTax).toLocaleString()}</span></div>
+            <hr style="border-color:#e2e8f0;margin:0.5rem 0;">
+            <div class="result-row"><span class="label"><strong>${l.netIncome}</strong></span><span class="value positive" style="font-size:1.2rem;">\u20ac${Math.round(netIncome).toLocaleString()}/year</span></div>
+            <div class="result-row"><span class="label">${l.effectiveRate}</span><span class="value">${effectiveRate.toFixed(1)}%</span></div>
+            <div class="result-row"><span class="label">${l.monthlyNetIncome}</span><span class="value positive">\u20ac${Math.round(netIncome / 12).toLocaleString()}/mo</span></div>`;
+    }
+    document.getElementById('taxResult').innerHTML = result;
+}
+
+function calcPersonalTax(taxable) {
+    if (taxable <= 0) return 0;
+    const brackets = [{ limit: 15820, rate: 0.25 }, { limit: 27920, rate: 0.40 }, { limit: 48320, rate: 0.45 }, { limit: Infinity, rate: 0.50 }];
+    const taxFree = 10160;
+    let remaining = Math.max(0, taxable - taxFree), tax = 0, prev = 0;
+    for (const b of brackets) {
+        const taxableInBracket = Math.min(remaining, b.limit - prev);
+        tax += taxableInBracket * b.rate;
+        remaining -= taxableInBracket;
+        prev = b.limit;
+        if (remaining <= 0) break;
+    }
+    return tax;
+}
+
+// Interactions
+function selectIdea(id, el) {
+    state.selectedIdea = id;
+    document.querySelectorAll('#ideaGrid .idea-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+}
+
+function selectCustomIdea() {
+    const name = document.getElementById('customIdeaName').value;
+    if (name) {
+        state.selectedIdea = 'custom';
+        state.customIdeaName = name;
+        state.customIdeaDesc = document.getElementById('customIdeaDesc').value;
+        document.querySelectorAll('#ideaGrid .idea-card').forEach(c => c.classList.remove('selected'));
+    }
+}
+
+function selectStructure(id, el) {
+    state.selectedStructure = id;
+    document.querySelectorAll('#structGrid .idea-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('taxStructure').value = id === 'eenmanszaak' ? 'eenmanszaak' : 'bv';
+    renderCosts();
+    calculateTax();
+}
+
+function toggleCheck(index, el) {
+    state.checkedItems.has(index) ? state.checkedItems.delete(index) : state.checkedItems.add(index);
+    el.classList.toggle('checked');
+    el.querySelector('.check-box').innerHTML = state.checkedItems.has(index) ? '\u2713' : '';
+}
+
+function nextStep() { if (state.currentStep < state.totalSteps) { state.currentStep++; updateView(); } }
+function prevStep() { if (state.currentStep > 1) { state.currentStep--; updateView(); } }
+function goToStep(n) { state.currentStep = n; updateView(); }
+
+function updateView() {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(`step-${state.currentStep}`).classList.add('active');
+    renderProgress();
+    renderCosts();
+    if (state.currentStep === 5) renderSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderSummary() {
+    const l = t();
+    const ideas = l.ideas;
+    const idea = state.selectedIdea === 'custom'
+        ? { name: state.customIdeaName || '-', desc: state.customIdeaDesc || '' }
+        : ideas.find(i => i.id === state.selectedIdea) || { name: l.summaryLabels.notSelected };
+
+    const structNames = { eenmanszaak: l.structCards[0].name, bv: l.structCards[1].name, vof: l.structCards[2].name, nv: l.structCards[3].name };
+    const costs = getCosts();
+    const totalCost = costs.reduce((s, c) => s + c.amount, 0);
+
+    document.getElementById('summary').innerHTML = `
+        <div class="result-row"><span class="label">${l.summaryLabels.idea}</span><span class="value">${idea.name}</span></div>
+        <div class="result-row"><span class="label">${l.summaryLabels.structure}</span><span class="value">${structNames[state.selectedStructure] || l.summaryLabels.notSelected}</span></div>
+        <div class="result-row"><span class="label">${l.summaryLabels.cost}</span><span class="value">\u20ac${totalCost.toLocaleString()}</span></div>
+        <div class="result-row"><span class="label">${l.summaryLabels.progress}</span><span class="value">${state.checkedItems.size} / ${l.regSteps.length}</span></div>
+    `;
+}
+
+function exportPlan() {
+    const l = t();
+    const ideas = l.ideas;
+    const idea = state.selectedIdea === 'custom'
+        ? { name: state.customIdeaName || '-', desc: state.customIdeaDesc || '' }
+        : ideas.find(i => i.id === state.selectedIdea) || { name: l.summaryLabels.notSelected, desc: '' };
+    const structNames = { eenmanszaak: l.structCards[0].name, bv: l.structCards[1].name, vof: l.structCards[2].name, nv: l.structCards[3].name };
+    const costs = getCosts();
+    const totalCost = costs.reduce((s, c) => s + c.amount, 0);
+
+    let text = `${l.headerTitle.toUpperCase()}\n${'='.repeat(40)}\n\n`;
+    text += `${l.summaryLabels.idea}: ${idea.name}\n`;
+    text += `${l.summaryLabels.structure}: ${structNames[state.selectedStructure] || l.summaryLabels.notSelected}\n`;
+    text += `${l.summaryLabels.cost}: \u20ac${totalCost.toLocaleString()}\n\n`;
+    text += `${l.s4CostTitle.toUpperCase()}\n${'-'.repeat(30)}\n`;
+    costs.forEach(c => text += `  ${c.label}: \u20ac${c.amount.toLocaleString()}\n`);
+    text += `\n${l.s3Title.toUpperCase()}\n${'-'.repeat(30)}\n`;
+    l.regSteps.forEach((s, i) => text += `  [${state.checkedItems.has(i) ? 'X' : ' '}] ${s.t}\n      ${s.d}\n\n`);
+    text += `${l.s5Title.toUpperCase()}\n${'-'.repeat(30)}\n`;
+    l.timeline.forEach(t => text += `  ${t.w}: ${t.t}\n    ${t.d}\n\n`);
+
+    const blob = new Blob([text], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'belgium-business-plan.txt';
+    a.click();
+}
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
