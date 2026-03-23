@@ -268,7 +268,19 @@
         }
         .custom-idea-form textarea { min-height: 80px; resize: vertical; }
 
-        @media print { .btn, .lang-switcher { display: none; } }
+        /* Sticky nav */
+        .sticky-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+            border-top: 1px solid var(--border); padding: 0.75rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+        }
+        .sticky-nav .step-label { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
+        .sticky-nav .step-label strong { color: var(--text); }
+        .container { padding-bottom: 5rem; }
+
+        @media print { .btn, .lang-switcher, .sticky-nav { display: none; } .container { padding-bottom: 2rem; } }
     </style>
 </head>
 <body>
@@ -303,9 +315,6 @@
                 <button class="btn btn-secondary" onclick="selectCustomIdea()" id="customBtn">Use My Own Idea</button>
             </div>
         </div>
-        <div class="btn-group">
-            <button class="btn btn-primary" onclick="nextStep()" id="s1Next">Next: Legal Structure &rarr;</button>
-        </div>
     </div>
 
     <!-- STEP 2 -->
@@ -319,10 +328,6 @@
             <h3 id="s2Choose" style="margin-top:1.5rem;">Your choice:</h3>
             <div class="idea-grid" id="structGrid"></div>
         </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="prevStep()" id="s2Back">&larr; Back</button>
-            <button class="btn btn-primary" onclick="nextStep()" id="s2Next">Next: Registration &rarr;</button>
-        </div>
     </div>
 
     <!-- STEP 3 -->
@@ -332,10 +337,6 @@
             <p id="s3Desc">Here's every registration step in order. Check them off as you complete them.</p>
             <ul class="checklist" id="registrationChecklist"></ul>
             <div class="info-box warning" id="s3Warning"></div>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="prevStep()" id="s3Back">&larr; Back</button>
-            <button class="btn btn-primary" onclick="nextStep()" id="s3Next">Next: Costs &amp; Tax &rarr;</button>
         </div>
     </div>
 
@@ -356,10 +357,6 @@
             <div class="calc-result" id="taxResult"></div>
             <h3 id="s4TipsTitle" style="margin-top:2rem;">Belgium Tax Optimization Tips</h3>
             <div id="taxTips"></div>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="prevStep()" id="s4Back">&larr; Back</button>
-            <button class="btn btn-primary" onclick="nextStep()" id="s4Next">Next: Launch Timeline &rarr;</button>
         </div>
     </div>
 
@@ -382,10 +379,14 @@
                 <button class="btn btn-secondary" onclick="window.print()" id="printBtn">Print This Page</button>
             </div>
         </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="prevStep()" id="s5Back">&larr; Back</button>
-        </div>
     </div>
+</div>
+
+<!-- Sticky Navigation -->
+<div class="sticky-nav" id="stickyNav">
+    <button class="btn btn-secondary" onclick="prevStep()" id="navBack">&larr; Back</button>
+    <span class="step-label" id="navLabel"></span>
+    <button class="btn btn-primary" onclick="nextStep()" id="navNext">Next &rarr;</button>
 </div>
 
 <script>
@@ -444,6 +445,7 @@ en: {
         { id: 'eenmanszaak', icon: '\u{1F464}', name: 'Eenmanszaak', desc: 'Simplest to start, cheapest setup, but personal liability' },
         { id: 'bv', icon: '\u{1F3E2}', name: 'BV', desc: 'Best tax rate, limited liability, professional image' },
         { id: 'vof', icon: '\u{1F91D}', name: 'VOF', desc: 'Simple partnership, shared responsibility' },
+        { id: 'commv', icon: '\u{1F4B0}', name: 'CommV', desc: 'Active partner + silent investor, mixed liability' },
         { id: 'nv', icon: '\u{1F3E3}', name: 'NV', desc: 'For large operations needing significant capital' },
     ],
     ideas: [
@@ -491,6 +493,7 @@ en: {
     taxLabels: { grossRevenue:'Gross Revenue', expenses:'Business Expenses', grossProfit:'Gross Profit', salary:'Your Salary (from BV)', social:'Social Contributions (20.5%)', personalTax:'Personal Income Tax', netSalary:'Net Salary (in pocket)', companyProfit:'Company Profit (after salary)', corpTax:'Corporate Tax (20/25%)', retained:'Retained in Company', totalNet:'Total Net (salary + retained)', effectiveRate:'Effective Tax Rate', monthlyNet:'Monthly Net Salary', netProfit:'Net Profit', municipalTax:'Municipal Tax (~7%)', netIncome:'Net Income (in pocket)', monthlyNetIncome:'Monthly Net Income', bvBreakdown:'BV Tax Breakdown (Annual)', eenBreakdown:'Eenmanszaak Tax Breakdown (Annual)' },
     metaLabels: { startup:'Startup', profit:'Profit', margin:'Margin', difficulty:'Difficulty', time:'Time to profit' },
     summaryLabels: { idea:'Business Idea', structure:'Legal Structure', cost:'Estimated Startup Cost', progress:'Registration Steps Completed', notSelected:'Not selected' },
+    navBack: '\u2190 Back', navNext: ['Next: Legal Structure \u2192','Next: Registration \u2192','Next: Costs & Tax \u2192','Next: Launch Timeline \u2192',''],
 },
 nl: {
     headerTitle: 'Belgische Startersgids voor Ondernemers',
@@ -545,6 +548,7 @@ nl: {
         { id:'eenmanszaak', icon:'\u{1F464}', name:'Eenmanszaak', desc:'Eenvoudigst op te starten, goedkoopst, maar persoonlijke aansprakelijkheid' },
         { id:'bv', icon:'\u{1F3E2}', name:'BV', desc:'Beste belastingtarief, beperkte aansprakelijkheid, professioneel imago' },
         { id:'vof', icon:'\u{1F91D}', name:'VOF', desc:'Eenvoudig partnerschap, gedeelde verantwoordelijkheid' },
+        { id:'commv', icon:'\u{1F4B0}', name:'CommV', desc:'Actieve vennoot + stille investeerder, gemengde aansprakelijkheid' },
         { id:'nv', icon:'\u{1F3E3}', name:'NV', desc:'Voor grote operaties met significant kapitaal' },
     ],
     ideas: [
@@ -592,6 +596,7 @@ nl: {
     taxLabels: { grossRevenue:'Bruto omzet', expenses:'Bedrijfskosten', grossProfit:'Brutowinst', salary:'Jouw loon (vanuit BV)', social:'Sociale bijdragen (20,5%)', personalTax:'Personenbelasting', netSalary:'Nettoloon (in je zak)', companyProfit:'Bedrijfswinst (na loon)', corpTax:'Vennootschapsbelasting (20/25%)', retained:'Ingehouden in bedrijf', totalNet:'Totaal netto (loon + ingehouden)', effectiveRate:'Effectief belastingtarief', monthlyNet:'Maandelijks nettoloon', netProfit:'Nettowinst', municipalTax:'Gemeentebelasting (~7%)', netIncome:'Netto-inkomen (in je zak)', monthlyNetIncome:'Maandelijks netto-inkomen', bvBreakdown:'BV Belastingoverzicht (Jaarlijks)', eenBreakdown:'Eenmanszaak Belastingoverzicht (Jaarlijks)' },
     metaLabels: { startup:'Opstart', profit:'Winst', margin:'Marge', difficulty:'Moeilijkheid', time:'Tijd tot winst' },
     summaryLabels: { idea:'Bedrijfsidee', structure:'Rechtsvorm', cost:'Geschatte opstartkosten', progress:'Registratiestappen afgevinkt', notSelected:'Niet geselecteerd' },
+    navBack: '\u2190 Terug', navNext: ['Volgende: Rechtsvorm \u2192','Volgende: Registratie \u2192','Volgende: Kosten & Belasting \u2192','Volgende: Lanceringstijdlijn \u2192',''],
 },
 fr: {
     headerTitle: 'Guide de Cr\u00e9ation d\'Entreprise en Belgique',
@@ -646,6 +651,7 @@ fr: {
         { id:'eenmanszaak', icon:'\u{1F464}', name:'Entreprise individuelle', desc:'La plus simple \u00e0 cr\u00e9er, la moins ch\u00e8re, mais responsabilit\u00e9 personnelle' },
         { id:'bv', icon:'\u{1F3E2}', name:'SRL', desc:'Meilleur taux d\'imposition, responsabilit\u00e9 limit\u00e9e, image professionnelle' },
         { id:'vof', icon:'\u{1F91D}', name:'SNC', desc:'Partenariat simple, responsabilit\u00e9 partag\u00e9e' },
+        { id:'commv', icon:'\u{1F4B0}', name:'SComm', desc:'Associ\u00e9 actif + investisseur silencieux, responsabilit\u00e9 mixte' },
         { id:'nv', icon:'\u{1F3E3}', name:'SA', desc:'Pour les grandes op\u00e9rations n\u00e9cessitant un capital important' },
     ],
     ideas: [
@@ -693,6 +699,7 @@ fr: {
     taxLabels: { grossRevenue:'Chiffre d\'affaires brut', expenses:'D\u00e9penses professionnelles', grossProfit:'B\u00e9n\u00e9fice brut', salary:'Votre salaire (de la SRL)', social:'Cotisations sociales (20,5%)', personalTax:'Imp\u00f4t sur le revenu', netSalary:'Salaire net (en poche)', companyProfit:'B\u00e9n\u00e9fice soci\u00e9t\u00e9 (apr\u00e8s salaire)', corpTax:'Imp\u00f4t des soci\u00e9t\u00e9s (20/25%)', retained:'Retenu dans la soci\u00e9t\u00e9', totalNet:'Total net (salaire + retenu)', effectiveRate:'Taux d\'imposition effectif', monthlyNet:'Salaire net mensuel', netProfit:'B\u00e9n\u00e9fice net', municipalTax:'Taxe communale (~7%)', netIncome:'Revenu net (en poche)', monthlyNetIncome:'Revenu net mensuel', bvBreakdown:'Ventilation fiscale SRL (Annuel)', eenBreakdown:'Ventilation fiscale Entreprise individuelle (Annuel)' },
     metaLabels: { startup:'D\u00e9marrage', profit:'Profit', margin:'Marge', difficulty:'Difficult\u00e9', time:'D\u00e9lai de rentabilit\u00e9' },
     summaryLabels: { idea:'Id\u00e9e d\'entreprise', structure:'Forme juridique', cost:'Co\u00fbt de d\u00e9marrage estim\u00e9', progress:'\u00c9tapes d\'enregistrement compl\u00e9t\u00e9es', notSelected:'Non s\u00e9lectionn\u00e9' },
+    navBack: '\u2190 Retour', navNext: ['Suivant : Forme juridique \u2192','Suivant : Enregistrement \u2192','Suivant : Co\u00fbts & Imp\u00f4ts \u2192','Suivant : Calendrier \u2192',''],
 },
 };
 
@@ -717,29 +724,21 @@ function renderAll() {
     document.getElementById('customIdeaName').placeholder = l.customPlaceholder;
     document.getElementById('customIdeaDesc').placeholder = l.customDescPlaceholder;
     document.getElementById('customBtn').textContent = l.customBtn;
-    document.getElementById('s1Next').innerHTML = l.s1Next;
     document.getElementById('s2Title').textContent = l.s2Title;
     document.getElementById('s2Desc').textContent = l.s2Desc;
     document.getElementById('s2Choose').textContent = l.s2Choose;
-    document.getElementById('s2Back').innerHTML = l.s2Back;
-    document.getElementById('s2Next').innerHTML = l.s2Next;
     document.getElementById('s3Title').textContent = l.s3Title;
     document.getElementById('s3Desc').textContent = l.s3Desc;
     document.getElementById('s3Warning').innerHTML = l.s3Warning;
-    document.getElementById('s3Back').innerHTML = l.s3Back;
-    document.getElementById('s3Next').innerHTML = l.s3Next;
     document.getElementById('s4Title').innerHTML = l.s4Title;
     document.getElementById('s4Desc').textContent = l.s4Desc;
     document.getElementById('s4CostTitle').textContent = l.s4CostTitle;
     document.getElementById('s4TaxTitle').textContent = l.s4TaxTitle;
     document.getElementById('s4TipsTitle').textContent = l.s4TipsTitle;
-    document.getElementById('s4Back').innerHTML = l.s4Back;
-    document.getElementById('s4Next').innerHTML = l.s4Next;
     document.getElementById('s5Title').textContent = l.s5Title;
     document.getElementById('s5Desc').textContent = l.s5Desc;
     document.getElementById('s5ResTitle').textContent = l.s5ResTitle;
     document.getElementById('s5SumTitle').textContent = l.s5SumTitle;
-    document.getElementById('s5Back').innerHTML = l.s5Back;
     document.getElementById('exportBtn').textContent = l.exportBtn;
     document.getElementById('printBtn').textContent = l.printBtn;
     document.getElementById('lblRevenue').textContent = l.lblRevenue;
@@ -758,6 +757,7 @@ function renderAll() {
     renderTaxTips();
     renderCosts();
     calculateTax();
+    updateStickyNav();
     if (state.currentStep === 5) renderSummary();
 }
 
@@ -992,8 +992,21 @@ function updateView() {
     document.getElementById(`step-${state.currentStep}`).classList.add('active');
     renderProgress();
     renderCosts();
+    updateStickyNav();
     if (state.currentStep === 5) renderSummary();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateStickyNav() {
+    const l = t();
+    const backBtn = document.getElementById('navBack');
+    const nextBtn = document.getElementById('navNext');
+    const label = document.getElementById('navLabel');
+    backBtn.innerHTML = l.navBack;
+    backBtn.style.visibility = state.currentStep === 1 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = state.currentStep === state.totalSteps ? 'hidden' : 'visible';
+    nextBtn.innerHTML = l.navNext[state.currentStep - 1] || '';
+    label.innerHTML = `<strong>${l.steps[state.currentStep - 1]}</strong> &mdash; ${state.currentStep} / ${state.totalSteps}`;
 }
 
 function renderSummary() {
@@ -1003,7 +1016,7 @@ function renderSummary() {
         ? { name: state.customIdeaName || '-', desc: state.customIdeaDesc || '' }
         : ideas.find(i => i.id === state.selectedIdea) || { name: l.summaryLabels.notSelected };
 
-    const structNames = { eenmanszaak: l.structCards[0].name, bv: l.structCards[1].name, vof: l.structCards[2].name, nv: l.structCards[3].name };
+    const structNames = { eenmanszaak: l.structCards[0].name, bv: l.structCards[1].name, vof: l.structCards[2].name, commv: l.structCards[3].name, nv: l.structCards[4].name };
     const costs = getCosts();
     const totalCost = costs.reduce((s, c) => s + c.amount, 0);
 
@@ -1021,7 +1034,7 @@ function exportPlan() {
     const idea = state.selectedIdea === 'custom'
         ? { name: state.customIdeaName || '-', desc: state.customIdeaDesc || '' }
         : ideas.find(i => i.id === state.selectedIdea) || { name: l.summaryLabels.notSelected, desc: '' };
-    const structNames = { eenmanszaak: l.structCards[0].name, bv: l.structCards[1].name, vof: l.structCards[2].name, nv: l.structCards[3].name };
+    const structNames = { eenmanszaak: l.structCards[0].name, bv: l.structCards[1].name, vof: l.structCards[2].name, commv: l.structCards[3].name, nv: l.structCards[4].name };
     const costs = getCosts();
     const totalCost = costs.reduce((s, c) => s + c.amount, 0);
 
