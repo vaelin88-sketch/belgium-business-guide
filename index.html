@@ -956,16 +956,31 @@ function selectIdea(id, el) {
     state.selectedIdea = id;
     document.querySelectorAll('#ideaGrid .idea-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
+    // Reset custom form visual
+    const form = document.querySelector('.custom-idea-form');
+    form.style.borderColor = ''; form.style.background = '';
+    const btn = document.getElementById('customBtn');
+    btn.textContent = t().customBtn; btn.style.background = ''; btn.style.color = '';
 }
 
 function selectCustomIdea() {
-    const name = document.getElementById('customIdeaName').value;
-    if (name) {
-        state.selectedIdea = 'custom';
-        state.customIdeaName = name;
-        state.customIdeaDesc = document.getElementById('customIdeaDesc').value;
-        document.querySelectorAll('#ideaGrid .idea-card').forEach(c => c.classList.remove('selected'));
+    const name = document.getElementById('customIdeaName').value.trim();
+    if (!name) {
+        document.getElementById('customIdeaName').style.borderColor = 'var(--accent)';
+        document.getElementById('customIdeaName').focus();
+        return;
     }
+    state.selectedIdea = 'custom';
+    state.customIdeaName = name;
+    state.customIdeaDesc = document.getElementById('customIdeaDesc').value;
+    document.querySelectorAll('#ideaGrid .idea-card').forEach(c => c.classList.remove('selected'));
+    const form = document.querySelector('.custom-idea-form');
+    form.style.borderColor = 'var(--green)';
+    form.style.background = 'rgba(22,163,74,0.05)';
+    document.getElementById('customBtn').textContent = '\u2713 ' + t().customBtn;
+    document.getElementById('customBtn').style.background = 'var(--green)';
+    document.getElementById('customBtn').style.color = '#fff';
+    document.getElementById('customIdeaName').style.borderColor = 'var(--border)';
 }
 
 function selectStructure(id, el) {
